@@ -1,24 +1,33 @@
-<div class="row clearfix " ng-init="initGirds();">
+<div class="row clearfix " ng-init="initGirds();" style="padding-left: 46px;">
 
-	<div class="row clearfix " style="padding-left:46px;">
+	<div class="row clearfix ">
 		<h2>{{data.top.vTopName}}</h2>
 		<div class="row clearfix">
-			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<label class="label label-info">前一页</label>
-			</div>
 			<div class="col-sm-5 col-sm-offset-1 col-md-6 ">
-				<ul class="list-inline">
-					<li class="text-center" ng-repeat="secNav in data.top.secList">{{secNav.vSecName}}</li>
-					
-				</ul>
-			</div>
-			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<label class="label label-info">后一页</label>
+				<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
+					<button type="button" class="btn btn-info"
+						ng-disabled="data.top.preDisabled"
+						ng-click="changeSecNavShow(data.top,0)">前一页</button>
+				</div>
+				<div class="col-sm-5 col-sm-offset-1 col-md-6 ">
+					<ul class="list-inline">
+						<li class="text-center" ng-repeat="secNav in data.top.secList "
+							ng-if="$index >= data.top.minIndex && $index < data.top.maxIndex "
+							ng-click="listGirdsByTopAndSecNav(secNav.vSecId,1)"><a href="">{{secNav.vSecName}}</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
+					<button type="button" class="btn btn-info"
+						ng-disabled="data.top.nextDisabled"
+						ng-click="changeSecNavShow(data.top,1)">后一页</button>
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="row clearfix">
-			<div ng-if="data.list[0] != null" class="col-md-3 resent-grid recommended-grid" ng-repeat="video in data.list">
+			<div ng-if="list[0] != null"
+				class="col-md-3 resent-grid recommended-grid"
+				ng-repeat="video in list">
 				<div class="resent-grid-img recommended-grid-img">
 					<a href="single.html"><img src="static/images/r1.jpg" alt="" /></a>
 					<!-- <div class="time small-time">
@@ -32,11 +41,18 @@
 					<p class="views views-info">{{video.vTitle}}</p>
 				</div>
 			</div>
-			
+
 			<div class="clearfix"></div>
 		</div>
-	
+
 		<hr noshade="noshade" />
+	</div>
+
+	<div class="row clearfix">
+		<div class="col-md-9 column">
+			<!-- 分页插件 -->
+			<tm-pagination conf="paginationConf"></tm-pagination>
+		</div>
 	</div>
 
 </div>

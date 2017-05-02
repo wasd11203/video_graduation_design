@@ -35,6 +35,11 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
+	public int getResourceByNavCounts(Map<String, Object> map) {
+		return resourceMapper.selectResourceByNavCounts(map);
+	}
+	
+	@Override
 	public List<Resource> getResourceListByKeywords(Map<String, Object> map) {
 		return resourceMapper.selectResourceByKeywords(map);
 	}

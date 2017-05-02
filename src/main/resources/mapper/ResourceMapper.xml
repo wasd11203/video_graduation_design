@@ -107,10 +107,30 @@
 		limit #{startIndex},#{pageSize}
 	</select>
 
+	<select id="selectResourceByNavCounts" parameterType="Map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			v_top_category top
+		LEFT JOIN v_sec_category sec ON top.V_TOP_ID = sec.V_TOP_ID
+		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="vTopId != null">
+				top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
+			</if>
+			<if test="vSecId != null">
+				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+
+
 	<select id="selectResourceByKeywords" parameterType="Map" resultMap="RESOURCE_RESULT_MAP">
 		SELECT
 			video.VI_ID,
 			video.VI_TITLE,
+			video.VI_NAME,
 			video.VI_PIC,
 			video.DURATION,
 			manager.M_ID,

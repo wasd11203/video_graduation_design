@@ -37,6 +37,13 @@ public interface ResourceService {
 	public List<Resource> getResourceListByNav(Map<String, Object> map);
 	
 	/**
+	 * 获取指定的一级菜单,二级菜单下的视频总数
+	 * @param map
+	 * @return
+	 */
+	public int getResourceByNavCounts(Map<String, Object> map);
+	
+	/**
 	 * 根据关键字查询 视频列表
 	 * @param map
 	 * @return

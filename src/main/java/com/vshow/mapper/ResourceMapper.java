@@ -30,6 +30,13 @@ public interface ResourceMapper {
 	public List<Resource> selectResourceByNav(Map<String, Object> map);
 	
 	/**
+	 * 获取指定的一级菜单,二级菜单下的视频总数
+	 * @param map
+	 * @return
+	 */
+	public int selectResourceByNavCounts(Map<String, Object> map);
+	
+	/**
 	 * 获取指定菜单下的二级菜单
 	 * @param map
 	 * @return

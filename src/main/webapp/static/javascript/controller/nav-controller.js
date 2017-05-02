@@ -15,13 +15,23 @@ angular.module('vShow')
             'Karma'
         ];
     	
+//    	console.log($stateParams);
+    	var vTopId = $stateParams.vTopId;
+    	
     	$scope.initCtrl = function(){
     		var url = "nav/list/top";
     		var param = {};
     		commonservice.postData(url,param).then(function(res){
 //    			console.log(res.data);
     			$scope.list = res.data;
-    	    	
+    			if(vTopId){
+    				angular.forEach($scope.list,function(data,index,array){
+    					if(data.V_TOP_ID == vTopId){
+    						$scope.list.curIndex = index;
+    					}
+    				});
+    			}
+    			
     		},function(res){
     			alert(res.status);
     		});
@@ -33,10 +43,12 @@ angular.module('vShow')
     	/**
     	 * 路由跳转时使用params传递参数。。无法实现刷新时保留参数
     	 */
-    	$scope.go = function(vTopId){
+    	$scope.go = function(vTopId,index){
     		var param = {"vTopId":vTopId};
     		
-    		$state.go("maincontent.listbytop",param);
+    		$scope.list.curIndex = index;
+    		
+    		$state.go("maincontent.listbytop",param,{reload:true});
     		console.log(vTopId);
     	}
     	

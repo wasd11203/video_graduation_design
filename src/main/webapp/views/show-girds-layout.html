@@ -4,21 +4,20 @@
 		<h2>{{navAndVideos.vTopName}}</h2>
 		<div class="row clearfix">
 			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<label class="label label-info">前一页</label>
+				<button type="button" class="btn btn-info" ng-disabled="navAndVideos.preDisabled" ng-click="changeSecNavShow(navAndVideos,0)">前一页</button>
 			</div>
 			<div class="col-sm-5 col-sm-offset-1 col-md-6 ">
 				<ul class="list-inline">
-					<li class="text-center" ng-repeat="secNav in navAndVideos.secList">{{secNav.vSecName}}</li>
-					
+					<li class="text-center" ng-repeat="secNav in navAndVideos.secList " ng-if="$index >= navAndVideos.minIndex && $index < navAndVideos.maxIndex " ng-click="changeVideos(navAndVideos,$index)"><a href="">{{secNav.vSecName}}</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<label class="label label-info">后一页</label>
+				<button type="button" class="btn btn-info" ng-disabled="navAndVideos.nextDisabled" ng-click="changeSecNavShow(navAndVideos,1)">后一页</button>
 			</div>
 		</div>
 		
 		<div class="row clearfix">
-			<div class="col-md-3 resent-grid recommended-grid" ng-repeat="video in navAndVideos.secList[0].videos">
+			<div class="col-md-3 resent-grid recommended-grid" ng-repeat="video in navAndVideos.secList[navAndVideos.curIndex].videos">
 				<div class="resent-grid-img recommended-grid-img">
 					<a href="single.html"><img src="static/images/r1.jpg" alt="" /></a>
 					<!-- <div class="time small-time">

@@ -1,303 +1,147 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<title>微show</title>
-
-<link rel="shortcut icon" href="short-icon.ico"
-	type="image/vnd.microsoft.icon">
-<link rel="icon" href="short-icon.ico" type="image/vnd.microsoft.icon">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!-- bower:css start -->
-<link href="static/bower_components/bootstrap/dist/css/bootstrap.css"
-	rel="stylesheet" type="text/css" />
-<!-- end bower:css -->
-
-<!-- build:css(.tmp) static/styles/*.css start-->
-<link href="static/styles/dashboard.css" rel="stylesheet"
-	type="text/css" />
-<link href="static/styles/style.css" rel='stylesheet' type="text/css" />
-<link href="static/styles/popuo-box.css" rel="stylesheet"
-	type="text/css" />
-<!-- end build:css(.tmp) static/styles/*.css -->
-
-
-</head>
-
-<body ng-app="vShow">
-
-	<!--1、上侧搜索栏开始-->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="index.html"> <img
-					src="static/images/logo.png" />
-				</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<div class="top-search">
-					<form class="navbar-form navbar-right">
-						<input type="text" class="form-control" placeholder="Search...">
-						<input type="submit" value=" ">
-					</form>
-				</div>
-				<!-- <div class="header-top-right">
-					<div class="signin">
-						<a href="#small-dialog2" class="play-icon popup-with-zoom-anim">注册</a>
-							<div id="small-dialog2" class="mfp-hide">
-								<h3>注册新用户</h3>
-								<div class="social-sits">
-									<div class="button-bottom">
-										<p>已有账号? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">登录</a></p>
-									</div>
-								</div>
-								<div class="signup">
-									<form>
-										<input type="text" class="email" placeholder="用户名" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />
-										<input type="text" class="email" placeholder="密码" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />
-									</form>
-									<div class="continue-button">
-										<a href="#small-dialog3" class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">注册</a>
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>	
-							<div id="small-dialog3" class="mfp-hide">
-								<h3>Create Account</h3> 
-								<div class="social-sits">
-									<div class="facebook-button">
-										<a href="#">Connect with Facebook</a>
-									</div>
-									<div class="chrome-button">
-										<a href="#">Connect with Google</a>
-									</div>
-									<div class="button-bottom">
-										<p>Already have an account? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">Login</a></p>
-									</div>
-								</div>
-								<div class="signup">
-									<form>
-										<input type="text" class="email" placeholder="Email" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
-										<input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />
-										<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />
-										<input type="submit"  value="Sign Up"/>
-									</form>
-								</div>
-								<div class="clearfix"> </div>
-							</div>		
-							<div id="small-dialog4" class="mfp-hide">
-								<h3>Feedback</h3> 
-								<div class="feedback-grids">
-									<div class="feedback-grid">
-										<p>Suspendisse tristique magna ut urna pellentesque, ut egestas velit faucibus. Nullam mattis lectus ullamcorper dui dignissim, sit amet egestas orci ullamcorper.</p>
-									</div>
-									<div class="button-bottom">
-										<p><a href="#small-dialog" class="play-icon popup-with-zoom-anim"></a> to get started.</p>
-									</div>
-								</div>
-							</div>
-							<div id="small-dialog5" class="mfp-hide">
-								<h3>Help</h3> 
-									<div class="help-grid">
-										<p>Suspendisse tristique magna ut urna pellentesque, ut egestas velit faucibus. Nullam mattis lectus ullamcorper dui dignissim, sit amet egestas orci ullamcorper.</p>
-									</div>
-									<div class="help-grids">
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog4" class="play-icon popup-with-zoom-anim">Feedback</a></p>
-										</div>
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog6" class="play-icon popup-with-zoom-anim">Lorem ipsum dolor sit amet</a></p>
-										</div>
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog6" class="play-icon popup-with-zoom-anim">Nunc vitae rutrum enim</a></p>
-										</div>
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog6" class="play-icon popup-with-zoom-anim">Mauris at volutpat leo</a></p>
-										</div>
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog6" class="play-icon popup-with-zoom-anim">Mauris vehicula rutrum velit</a></p>
-										</div>
-										<div class="help-button-bottom">
-											<p><a href="#small-dialog6" class="play-icon popup-with-zoom-anim">Aliquam eget ante non orci fac</a></p>
-										</div>
-									</div>
-							</div>
-							<div id="small-dialog6" class="mfp-hide">
-								<div class="video-information-text">
-									<h4>Video information & settings</h4>
-									<p>Suspendisse tristique magna ut urna pellentesque, ut egestas velit faucibus. Nullam mattis lectus ullamcorper dui dignissim, sit amet egestas orci ullamcorper.</p>
-									<ol>
-										<li>Nunc vitae rutrum enim. Mauris at volutpat leo. Vivamus dapibus mi ut elit fermentum tincidunt.</li>
-										<li>Nunc vitae rutrum enim. Mauris at volutpat leo. Vivamus dapibus mi ut elit fermentum tincidunt.</li>
-										<li>Nunc vitae rutrum enim. Mauris at volutpat leo. Vivamus dapibus mi ut elit fermentum tincidunt.</li>
-										<li>Nunc vitae rutrum enim. Mauris at volutpat leo. Vivamus dapibus mi ut elit fermentum tincidunt.</li>
-										<li>Nunc vitae rutrum enim. Mauris at volutpat leo. Vivamus dapibus mi ut elit fermentum tincidunt.</li>
-									</ol>
-								</div>
-							</div>
-							<div id="small-dialog7" class="mfp-hide">
-								<h3>Create Account</h3> 
-								<div class="social-sits">
-									<div class="facebook-button">
-										<a href="#">Connect with Facebook</a>
-									</div>
-									<div class="chrome-button">
-										<a href="#">Connect with Google</a>
-									</div>
-									<div class="button-bottom">
-										<p>Already have an account? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">Login</a></p>
-									</div>
-								</div>
-								<div class="signup">
-									<form action="upload.html">
-										<input type="text" class="email" placeholder="Email" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
-										<input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />
-										<input type="submit"  value="Sign In"/>
-									</form>
-								</div>
-								<div class="clearfix"> </div>
-							</div>	
-							<script>
-								$(document).ready(function() {
-									$('.popup-with-zoom-anim').magnificPopup({
-										type: 'inline',
-										fixedContentPos: false,
-										fixedBgPos: true,
-										overflowY: 'auto',
-										closeBtnInside: true,
-										preloader: false,
-										midClick: true,
-										removalDelay: 300,
-										mainClass: 'my-mfp-zoom-in'
-									});												
-								});
-							</script>	
-					</div>
-					<div class="signin">
-						<a href="#small-dialog" class="play-icon popup-with-zoom-anim">登录</a>
-						<div id="small-dialog" class="mfp-hide">
-							<h3>登录</h3>
-							<div class="social-sits">
-								<div class="facebook-button">
-									<a href="#">Connect with Facebook</a>
-								</div>
-								<div class="chrome-button">
-									<a href="#">Connect with Google</a>
-								</div>
-								<div class="button-bottom">
-									<p>注册新用户? <a href="#small-dialog2" class="play-icon popup-with-zoom-anim">注册</a></p>
-								</div>
-							</div>
-							<div class="signup">
-								<form>
-									<input type="text" class="email" placeholder="用户名" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?"/>
-									<input type="password" placeholder="密码" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />
-									<input type="submit"  value="登录"/>
-								</form>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
- -->
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</nav>
-	<!--上侧搜索栏结束-->
-
-
-	<div ui-view='maincontent'></div>
-
-
-	<!-- footer -->
-	<div class="footer">
-		<div class="footer-grids">
-
-			<label class="label label-default center-block">@copyright
-				2017-05-01</label>
-
-		</div>
-	</div>
-	<!-- //footer -->
-
-
-</body>
-
-<!-- bower:js start-->
-<script src="static/bower_components/jquery/dist/jquery.js"
-	type="text/javascript"></script>
-<script src="static/bower_components/angular/angular.js"></script>
-<script src="static/bower_components/angular-animate/angular-animate.js"></script>
-<script
-	src="static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="static/bower_components/angular-cookies/angular-cookies.js"></script>
-<script
-	src="static/bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
-<script
-	src="static/bower_components/angular-loading-bar/build/loading-bar.js"></script>
-<script
-	src="static/bower_components/angular-resource/angular-resource.js"></script>
-<script
-	src="static/bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script
-	src="static/bower_components/angular-smart-table/dist/smart-table.js"></script>
-<script
-	src="static/bower_components/angular-ueditor/dist/angular-ueditor.js"></script>
-<script
-	src="static/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script
-	src="static/bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-<script src="static/bower_components/blueimp-md5/js/md5.js"></script>
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="static/bower_components/lodash/lodash.js"></script>
-<script src="static/bower_components/ng-file-upload/ng-file-upload.js"></script>
-<script
-	src="static/bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
-<script src="static/bower_components/ng-dialog/js/ngDialog.js"></script>
-<script
-	src="static/bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
-<script
-	src="static/bower_components/angular-locale_zh-cn-master/angular-locale_zh-cn.js"></script>
-
-<script
-	src="static/bower_components/lightbox2-master/dist/js/lightbox.js"></script>
-<script src="static/bower_components/modernizr/modernizr-custom.js"
-	type="text/javascript"></script>
-<script
-	src="static/bower_components/magnific-popup/dist/jquery.magnific-popup.js"
-	type="text/javascript"></script>
-<!-- end bower:js -->
-
-<!-- build:js({.tmp,app}) static/scripts/scripts.js start-->
-<script src="static/javascript/app.js" type="text/javascript"></script>
-
-<script src="static/javascript/services/commonservice.js"
-	type="text/javascript"></script>
-
-<script src="static/javascript/directives/tm.pagination.js"
-	type="text/javascript"></script>
-
-<!-- Controller -->
-<script src="static/javascript/controller/maincontent.js"
-	type="text/javascript"></script>
-<script src="static/javascript/controller/nav-controller.js"
-	type="text/javascript"></script>
-<script src="static/javascript/controller/girds-layout-controller.js"
-	type="text/javascript"></script>
-<script src="static/javascript/controller/list-videos-bytop-controller.js"
-	type="text/javascript"></script>
+	<head>
+		<title>微show</title>
+		
+		<link rel="shortcut icon" href="short-icon.ico"
+			type="image/vnd.microsoft.icon">
+		<link rel="icon" href="short-icon.ico" type="image/vnd.microsoft.icon">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<!-- bower:css start -->
+		<link href="static/bower_components/bootstrap/dist/css/bootstrap.css"
+			rel="stylesheet" type="text/css" />
+		<!-- end bower:css -->
+		
+		<!-- build:css(.tmp) static/styles/*.css start-->
+		<link href="static/styles/dashboard.css" rel="stylesheet"
+			type="text/css" />
+		<link href="static/styles/style.css" rel='stylesheet' type="text/css" />
+		<link href="static/styles/popuo-box.css" rel="stylesheet"
+			type="text/css" />
+		<link href="static/javascript/directives/paginate.css" rel='stylesheet' type='text/css'/>
+		<!-- end build:css(.tmp) static/styles/*.css -->
+		
 	
-<!-- end build:js({.tmp,app}) static/scripts/scripts.js -->
+	</head>
+	
+	<body ng-app="vShow">
+	
+		<!--1、上侧搜索栏开始-->
+		<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="SearchCtrl">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"> <img
+						src="static/images/logo.png" />
+					</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<div class="top-search">
+						<form name="toSearchForm" class="navbar-form navbar-right" ng-submit="search()">
+							<input type="text" ng-model="param.keywords" class="form-control" placeholder="Search...">
+							<input type="submit" value="">
+						</form>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</nav>
+		<!--上侧搜索栏结束-->
+	
+	
+		<div ui-view='maincontent'></div>
+	
+	
+		<!-- footer -->
+		<div class="footer">
+			<div class="footer-grids">
+	
+				<label class="label label-default center-block">@copyright
+					2017-05-01</label>
+	
+			</div>
+		</div>
+		<!-- //footer -->
+	
+	
+	</body>
+	
+	<!-- bower:js start-->
+	<script src="static/bower_components/jquery/dist/jquery.js"
+		type="text/javascript"></script>
+	<script src="static/bower_components/angular/angular.js"></script>
+	<script src="static/bower_components/angular-animate/angular-animate.js"></script>
+	<script
+		src="static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="static/bower_components/angular-cookies/angular-cookies.js"></script>
+	<script
+		src="static/bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
+	<script
+		src="static/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+	<script
+		src="static/bower_components/angular-resource/angular-resource.js"></script>
+	<script
+		src="static/bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script
+		src="static/bower_components/angular-smart-table/dist/smart-table.js"></script>
+	<script
+		src="static/bower_components/angular-ueditor/dist/angular-ueditor.js"></script>
+	<script
+		src="static/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script
+		src="static/bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+	<script src="static/bower_components/blueimp-md5/js/md5.js"></script>
+	<script src="static/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="static/bower_components/lodash/lodash.js"></script>
+	<script src="static/bower_components/ng-file-upload/ng-file-upload.js"></script>
+	<script
+		src="static/bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
+	<script src="static/bower_components/ng-dialog/js/ngDialog.js"></script>
+	<script
+		src="static/bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+	<script
+		src="static/bower_components/angular-locale_zh-cn-master/angular-locale_zh-cn.js"></script>
+	
+	<script
+		src="static/bower_components/lightbox2-master/dist/js/lightbox.js"></script>
+	<script src="static/bower_components/modernizr/modernizr-custom.js"
+		type="text/javascript"></script>
+	<script
+		src="static/bower_components/magnific-popup/dist/jquery.magnific-popup.js"
+		type="text/javascript"></script>
+	<!-- end bower:js -->
+	
+	<!-- build:js({.tmp,app}) static/scripts/scripts.js start-->
+	<script src="static/javascript/app.js" type="text/javascript"></script>
+	
+	<script src="static/javascript/services/commonservice.js"
+		type="text/javascript"></script>
+	
+	<script src="static/javascript/directives/tm.pagination.js"
+		type="text/javascript"></script>
+	
+	<!-- Controller -->
+	<script src="static/javascript/controller/maincontent.js"
+		type="text/javascript"></script>
+	<script src="static/javascript/controller/nav-controller.js"
+		type="text/javascript"></script>
+	<script src="static/javascript/controller/girds-layout-controller.js"
+		type="text/javascript"></script>
+	<script
+		src="static/javascript/controller/list-videos-bytop-controller.js"
+		type="text/javascript"></script>
+	<script src="static/javascript/controller/result-controller.js" type="text/javascript"></script>
+	<script src="static/javascript/controller/search-controller.js" type="text/javascript"></script>
+	
+	<!-- end build:js({.tmp,app}) static/scripts/scripts.js -->
 
 </html>

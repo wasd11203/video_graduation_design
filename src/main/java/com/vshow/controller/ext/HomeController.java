@@ -59,13 +59,12 @@ public class HomeController extends BasicController{
 		
 		map.put("vTopId", vTop);
 		
-		TopNav top = resourceService.getSecNavByTopId(map);
-		
-		if(vSecId != null && vSecId.trim().isEmpty()){
+		if(vSecId != null && !vSecId.trim().isEmpty()){
 			vSec = Integer.parseInt(vSecId);
 		}else{
-			
+			TopNav top = resourceService.getSecNavByTopId(map);
 			vSec = top.getSecList().get(0).getvSecId();
+			jobj.put("top", top);
 		}
 		
 		map.put("vSecId", vSec);
@@ -73,11 +72,12 @@ public class HomeController extends BasicController{
 		map.put("pageSize", pageSize);
 		
 		List<Resource> res = resourceService.getResourceListByNav(map);
+		int counts = resourceService.getResourceByNavCounts(map);
 		
 		jobj.put("code", 0);
-		jobj.put("top", top);
 		jobj.put("list", res);
-	
+		jobj.put("count", counts);
+		
 		return jobj;
 	}
 	
@@ -99,7 +99,7 @@ public class HomeController extends BasicController{
 		List<Resource> res = resourceService.getResourceListByKeywords(map);
 		int count = resourceService.getResourceByKeywordsCount(map);
 		
-		jobj.put("data", res);
+		jobj.put("list", res);
 		jobj.put("count", count);
 		
 		return jobj;
