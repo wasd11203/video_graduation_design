@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vshow.mapper.CommentMapper">
+	
+	<resultMap type="com.vshow.entity.VisitorUser" id="VISITOR_USER_MAP">
+		<id column="VU_ID" property="vuId"/>
+		<result column="VU_NICKNAME" property="vuNickname"/>
+		<result column="VU_INTIME" property="vuIntime"/>
+		
+	</resultMap>
+	
+	<resultMap type="com.vshow.entity.Comment" id="COMMENT_RESULT_MAP">
+		<id column="DC_ID" property="dcId"/>
+		<result column="VI_ID" property="vId"/>
+		<result column="DC_COMMENT" property="dcComment"/>
+		<result column="DC_INTIME" property="dcIntime"/>
+		<result column="ISDEL" property="isDel"/>
+		<result column="FABULOUS_COUNTS" property="fabulousCounts"/>
+		<association property="vUser" resultMap="VISITOR_USER_MAP"></association>	
+	</resultMap>
+	
+	<select id="selectCommentsByVid" parameterType="Map" resultMap="COMMENT_RESULT_MAP">
+		SELECT
+			*
+		FROM
+			v_direct_comment dir_comment
+		LEFT JOIN v_visitor_user vuser ON dir_comment.VU_ID = vuser.VU_ID
+		<where>
+			<if test="vId != null">
+				dir_comment.VI_ID = #{vId,jdbcType=DECIMAL}
+			</if>		
+		</where>
+		ORDER BY dir_comment.DC_INTIME DESC
+	</select>
+	
+	<insert id="insertComment" parameterType="Map" >
+		INSERT INTO v_direct_comment 
+		<trim prefix="("  suffix=")"  suffixOverrides=",">
+			<if test="dcId != null">
+				DC_ID,
+			</if>
+			<if test="vId != null">
+				VI_ID,
+			</if>
+			<if test="dcComment != null">
+				DC_COMMENT,
+			</if>
+			<if test="dcIntime != null ">
+				DC_INTIME,
+			</if>
+			<if test="isDel != null">
+				ISDEL,
+			</if>
+			<if test="fabulousCounts != null">
+				FABULOUS_COUNTS,
+			</if>
+			<if test="vuId != null">
+				VU_ID
+			</if>
+		</trim>
+		<trim prefix="VALUES ("  suffix=")"  suffixOverrides=",">
+			<if test="dcId != null">
+				#{dcId},
+			</if>
+			<if test="vId != null">
+				#{vId},
+			</if>
+			<if test="dcComment != null and dcComment != ''">
+				#{dcComment},
+			</if>
+			<if test="dcIntime != null ">
+				#{dcIntime},
+			</if>
+			<if test="isDel != null">
+				#{isDel},
+			</if>
+			<if test="fabulousCounts != null">
+				#{fabulousCounts},
+			</if>
+			<if test="vuId != null">
+				#{vuId}
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateComment" parameterType="Map">
+		update v_direct_comment 
+		<trim prefix="SET"  suffix=""  suffixOverrides=",">
+			<if test="vId != null">
+				VI_ID = #{vId},
+			</if>
+			<if test="dcComment != null">
+				DC_COMMENT = #{dcComment},
+			</if>
+			<if test="dcIntime != null ">
+				DC_INTIME = #{dcIntime},
+			</if>
+			<if test="isDel != null">
+				ISDEL = #{isDel},
+			</if>
+			<if test="upFab == 1">
+				FABULOUS_COUNTS = FABULOUS_COUNTS +1,
+			</if>
+			<if test="upFab == 0">
+				FABULOUS_COUNTS = FABULOUS_COUNTS -1,
+			</if>
+			<if test="vuId != null">
+				VU_ID = #{vuId}
+			</if>
+		</trim>
+		<where>
+			<if test="dcId != null">
+				DC_ID = #{dcId}
+			</if>
+		</where>
+	</update>
+</mapper>
+
+
+

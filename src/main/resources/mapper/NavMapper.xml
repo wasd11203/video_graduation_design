@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vshow.mapper.NavMapper">
+
+	<select id="selectTopNav" resultType="Map">
+		SELECT
+		top.V_TOP_ID,
+		top.V_TOP_NAME
+		FROM
+		v_top_category top
+	</select>
+
+</mapper>
+
+
+

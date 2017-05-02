@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vshow.mapper.ResourceMapper">
+
+	<resultMap type="com.vshow.entity.ManagerUser" id="MANAGER_RESULT_MAP">
+		<id column="M_ID" property="mId"/>
+		<result column="M_NICKNAME" property="mNickname"/>
+		<result column="M_PIC" property="mPic"/>
+	</resultMap>
+
+	<resultMap type="com.vshow.entity.Resource" id="RESOURCE_RESULT_MAP">
+		<id column="VI_ID" property="vId"/>
+		<result column="VI_PIC" property="vPic"/>
+		<result column="VI_TITLE" property="vTitle"/>	
+		<result column="VI_NAME" property="vName"/>
+		<result column="DURATION" property="duration"/>
+		<association property="managerUser" resultMap="MANAGER_RESULT_MAP"></association>		
+	</resultMap>
+	
+	<resultMap type="com.vshow.entity.nav.SecNav" id="SEC_RESULT_MAP">
+		<id column="V_SEC_ID" property="vSecId"/>
+		<result column="V_SEC_NAME" property="vSecName"/>
+		<result column="V_TOP_ID" property="vTopId"/>
+		<collection property="videos" resultMap="RESOURCE_RESULT_MAP"></collection>
+	</resultMap>
+	
+	<resultMap type="com.vshow.entity.nav.TopNav" id="TOP_RESULT_MAP">
+		<id column="V_TOP_ID" property="vTopId"/>
+		<result column="V_TOP_NAME" property="vTopName"/>
+		<collection property="secList" resultMap="SEC_RESULT_MAP"></collection>
+	</resultMap>
+
+	<resultMap type="com.vshow.entity.ResourceDetail" id="RESOURCE_DETAIL_RESULT">
+		<id column="VI_ID" property="vId"/>
+		<result column="VI_TITLE" property="vTitle"/>	
+		<result column="VI_NAME" property="vName"/>
+		<result column="VI_PIC" property="vPic"/>
+		<result column="VI_INTRODUCE" property="vIntroduce"/>
+		<result column="VI_PATH" property="vPath"/>
+		<result column="PLAY_COUNTS" property="playCounts"/>
+		<result column="DURATION" property="duration"/>
+		<result column="FABULOUS_COUNTS" property="fabulousCounts"/>
+		<result column="ISDEL" property="isDel"/>
+		<result column="V_SEC_ID" property="vSecId"/>
+							
+		<association property="managerUser" resultMap="MANAGER_RESULT_MAP"></association>		
+	</resultMap>
+
+	<select id="selectNavAndResource" parameterType="Map" resultMap="TOP_RESULT_MAP">
+		SELECT
+			top.*, sec.*, video.VI_ID,
+			video.VI_TITLE,
+			video.VI_NAME,
+			video.VI_PIC,
+			video.DURATION,
+			manager.M_ID,
+			manager.M_NICKNAME,
+			manager.M_PIC
+		FROM
+			v_top_category top
+		LEFT JOIN v_sec_category sec ON top.V_TOP_ID = sec.V_TOP_ID
+		LEFT JOIN (
+			SELECT
+				video.*
+			FROM
+				v_video_info video
+			WHERE
+				#{pageSize,jdbcType=DECIMAL} > (
+					SELECT
+						COUNT(1)
+					FROM
+						v_video_info
+					WHERE
+						V_SEC_ID = video.V_SEC_ID
+					AND VI_ID > video.VI_ID
+				)
+		) video ON sec.V_SEC_ID = video.V_SEC_ID
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		ORDER BY top.V_TOP_ID ASC,sec.V_SEC_ID ASC, video.VI_ID DESC 
+	
+	</select>
+
+	<select id="selectResourceByNav" parameterType="Map" resultMap="RESOURCE_RESULT_MAP">
+		SELECT
+			video.VI_ID,
+			video.VI_TITLE,
+			video.VI_NAME,
+			video.VI_PIC,
+			video.DURATION,
+			manager.M_ID,
+			manager.M_NICKNAME,
+			manager.M_PIC
+		FROM
+			v_top_category top
+		LEFT JOIN v_sec_category sec ON top.V_TOP_ID = sec.V_TOP_ID
+		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="vTopId != null">
+				top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
+			</if>
+			<if test="vSecId != null">
+				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
+			</if>
+		</where>
+		ORDER BY top.V_TOP_ID ASC,sec.V_SEC_ID ASC, video.VI_ID DESC 
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="selectResourceByKeywords" parameterType="Map" resultMap="RESOURCE_RESULT_MAP">
+		SELECT
+			video.VI_ID,
+			video.VI_TITLE,
+			video.VI_PIC,
+			video.DURATION,
+			manager.M_ID,
+			manager.M_NICKNAME,
+			manager.M_PIC
+		FROM
+			v_video_info video
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="keywords != null and keywords != ''">
+				video.VI_TITLE like '%${keywords}%'
+				OR 
+				manager.M_NICKNAME like '%${keywords}%'
+			</if>
+		</where>
+		ORDER BY video.V_SEC_ID DESC, video.VI_ID DESC 
+		limit #{startIndex},#{pageSize}
+	</select>
+	
+	<select id="selectResourceByKeywordsCount" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			v_video_info video
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="keywords != null and keywords != ''">
+				video.VI_TITLE like '%${keywords}%'
+				OR 
+				manager.M_NICKNAME like '%${keywords}%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectResourceById" parameterType="Map" resultMap="RESOURCE_DETAIL_RESULT">
+		SELECT
+			video.*,
+			manager.M_ID,
+			manager.M_NICKNAME,
+			manager.M_PIC
+		FROM
+			v_video_info video
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="vId != null">
+				video.VI_ID = #{vId,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateResourceById" parameterType="Map">
+		UPDATE v_video_info
+		<trim prefix="SET " suffix="" suffixOverrides=",">
+			<if test="vTitile != null and vTitile != ''">
+				 VI_TITLE = #{vTitile},
+			</if>
+			<if test="vName != null and vName != ''">
+				 VI_NAME = #{vName},
+			</if>
+			<if test="vPic != null and vPic != ''">
+				 VI_PIC = #{vPic},
+			</if>
+			<if test="vIntroduce != null and vIntroduce != ''">
+				 VI_INTRODUCE = #{vIntroduce},
+			</if>
+			<if test="vPath != null and vPath != ''">
+				 VI_PATH = #{vPath},
+			</if>
+			<if test="upCounts == 1 ">
+				PLAY_COUNTS =  PLAY_COUNTS +1,
+			</if>
+			<if test="upCounts == 0 ">
+				 PLAY_COUNTS = PLAY_COUNTS -1,
+			</if>
+			<if test="duration != null">
+				 DURATION = #{duration},
+			</if>
+			<if test="upFab == 1">
+				 FABULOUS_COUNTS = FABULOUS_COUNTS +1,
+			</if>
+			<if test="upFab == 0">
+				FABULOUS_COUNTS = FABULOUS_COUNTS -1,
+			</if>
+			<if test="isDel != null">
+				 ISDEL = #{isDel},
+			</if>
+			<if test="vSecId != null">
+				 V_SEC_ID = #{vSecId},
+			</if>
+			<if test="mId != null">
+				 M_ID = #{mId}
+			</if>
+		</trim>
+		<where>
+			<if test="vId != null">
+				VI_ID = #{vId}
+			</if>
+		</where>
+	</update>
+
+	<select id="selectSecNavByTopId" parameterType="Map" resultMap="TOP_RESULT_MAP">
+		SELECT
+			*
+		FROM
+			v_top_category top
+		LEFT JOIN v_sec_category sec ON top.V_TOP_ID = sec.V_TOP_ID
+		WHERE 
+			top.V_TOP_ID = #{vTopId}
+		ORDER BY sec.V_SEC_ID ASC
+	</select>
+
+</mapper>
+
+
+
