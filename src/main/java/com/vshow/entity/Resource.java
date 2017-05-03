@@ -36,6 +36,8 @@ public class Resource implements Serializable{
 	 */
 	private Long duration;	
 	
+	private Integer vSecId;
+	
 	/**
 	 * 视频发布者
 	 */
@@ -85,6 +87,14 @@ public class Resource implements Serializable{
 		this.duration = duration;
 	}
 
+	public Integer getvSecId() {
+		return vSecId;
+	}
+
+	public void setvSecId(Integer vSecId) {
+		this.vSecId = vSecId;
+	}
+
 	public ManagerUser getManagerUser() {
 		return managerUser;
 	}
@@ -101,13 +111,12 @@ public class Resource implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result
-				+ ((managerUser == null) ? 0 : managerUser.hashCode());
+		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
+		result = prime * result + ((managerUser == null) ? 0 : managerUser.hashCode());
 		result = prime * result + ((vId == null) ? 0 : vId.hashCode());
 		result = prime * result + ((vName == null) ? 0 : vName.hashCode());
 		result = prime * result + ((vPic == null) ? 0 : vPic.hashCode());
+		result = prime * result + ((vSecId == null) ? 0 : vSecId.hashCode());
 		result = prime * result + ((vTitle == null) ? 0 : vTitle.hashCode());
 		return result;
 	}
@@ -146,6 +155,11 @@ public class Resource implements Serializable{
 				return false;
 		} else if (!vPic.equals(other.vPic))
 			return false;
+		if (vSecId == null) {
+			if (other.vSecId != null)
+				return false;
+		} else if (!vSecId.equals(other.vSecId))
+			return false;
 		if (vTitle == null) {
 			if (other.vTitle != null)
 				return false;
@@ -156,9 +170,8 @@ public class Resource implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Resource [vId=" + vId + ", vTitle=" + vTitle + ", vName="
-				+ vName + ", vPic=" + vPic + ", duration=" + duration
-				+ ", managerUser=" + managerUser + "]";
+		return "Resource [vId=" + vId + ", vTitle=" + vTitle + ", vName=" + vName + ", vPic=" + vPic + ", duration="
+				+ duration + ", vSecId=" + vSecId + ", managerUser=" + managerUser + "]";
 	}
 	
 }

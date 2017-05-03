@@ -43,9 +43,10 @@ public class VisitorUserController extends BasicController{
 		map.put("vuNickname", nickname);
 		map.put("vuIp", ip);
 
-		int row = visitorUserService.addVisitorUser(map);
-		if (row > 0) {
+		Integer vuId = visitorUserService.addVisitorUser(map);
+		if (vuId != null) {
 			jobj.put("code", 0);
+			jobj.put("vuId", vuId);
 		} else {
 			jobj.put("code", 1);
 		}

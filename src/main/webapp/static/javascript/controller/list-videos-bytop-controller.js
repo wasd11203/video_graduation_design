@@ -6,7 +6,7 @@
  * @description # ListByTopCtrl Controller of the vShow
  */
 angular.module('vShow').controller('ListByTopCtrl',
-		function($scope, $rootScope, $stateParams, commonservice) {
+		function($scope, $rootScope, $stateParams, commonservice,$state) {
 			this.awesomeThings = [ 'HTML5 Boilerplate', 'AngularJS', 'Karma' ];
 			$scope.param = $stateParams;
 			console.log($scope.param);
@@ -153,6 +153,14 @@ angular.module('vShow').controller('ListByTopCtrl',
 				return false;
 			}
 			
-			
+			/**
+	    	 * 路由切换到 详情页
+	    	 */
+	    	$scope.toDetail = function(video){
+	    		var param = {"vId":video.vId,"vSecId":video.vSecId};
+	    		$state.go('maincontent.detail',param,{reload:true});
+	    		
+	    		return false;
+	    	}
 
 		});

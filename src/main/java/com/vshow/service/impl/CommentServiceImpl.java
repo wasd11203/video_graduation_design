@@ -46,4 +46,9 @@ public class CommentServiceImpl implements CommentService{
 		return commentMapper.updateComment(map);
 	}
 
+	@Override
+	public int getCommentsCountByVid(Map<String, Object> map) {
+		return commentMapper.selectCommentsCountByVid(map);
+	}
+
 }

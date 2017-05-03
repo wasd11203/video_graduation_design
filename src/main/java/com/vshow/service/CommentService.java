@@ -22,6 +22,13 @@ public interface CommentService {
 	public List<Comment> getCommentListByVid(Map<String, Object> map);
 
 	/**
+	 * 获取指定视频id下的评论总数
+	 * @param map
+	 * @return
+	 */
+	public int getCommentsCountByVid(Map<String, Object> map);
+	
+	/**
 	 * 插入一条评论
 	 * @param map
 	 * @return

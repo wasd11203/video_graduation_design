@@ -1,6 +1,7 @@
 package com.vshow.controller.ext;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vshow.controller.BasicController;
+import com.vshow.entity.Resource;
 import com.vshow.entity.ResourceDetail;
 import com.vshow.service.ResourceService;
 
@@ -65,5 +67,19 @@ public class DetailController extends BasicController{
 		
 		return jobj;
 	}
+	
+	@RequestMapping("recommend/resource")
+	@ResponseBody
+	public List<Resource> loadRecommendResource(String vSecId,String vId){
+		Integer vSec = new Integer(vSecId);
+		Integer id = new Integer(vId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("vSecId", vSec);
+		map.put("vId", id);
+		List<Resource> list = resourceService.getRecommendResourceBySecId(map);
+		
+		return list;
+	}
+	
 	
 }

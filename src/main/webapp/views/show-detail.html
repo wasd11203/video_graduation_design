@@ -1,0 +1,153 @@
+<div class="row clearfix" style="padding-left: 46px;" ng-init="initCtrl();">
+	<div class="col-md-8 column">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="row clearfix">
+					<div class="col-md-10 column">
+						<videogular vg-theme="config.theme">
+							<vg-media vg-src="config.sources" vg-tracks="config.tracks">
+							</vg-media>
+			
+							<vg-controls>
+								<vg-play-pause-button></vg-play-pause-button>
+								<vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+								<vg-scrub-bar>
+									<vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+								</vg-scrub-bar>
+								<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+								<vg-volume>
+									<vg-mute-button></vg-mute-button>
+									<vg-volume-bar></vg-volume-bar>
+								</vg-volume>
+								<vg-fullscreen-button></vg-fullscreen-button>
+							</vg-controls>
+			
+							<vg-overlay-play></vg-overlay-play>
+							<vg-poster vg-url='controller.config.plugins.poster'></vg-poster>
+			
+						</videogular>
+					</div>
+					<div class="col-md-2 column">
+						<ul class="list-unstyled">
+							<li class="">
+								<button class="btn btn-primary" ng-disabled="!video.fabBtn" ng-click="videoFabsAction(video)">
+								 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+								 	<span class="badge" ng-bind="video.fabulousCounts"></span>
+								</button>
+							</li>
+							<li>
+								<button class="btn btn-primary">
+								 	<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+								 	<span class="badge" ng-bind="video.playCounts"></span>
+								</button>
+							</li>
+						</ul>
+						
+					</div>
+				</div>
+				
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+					
+						<dl style="background: #f7f7f7;padding: 1em;">
+							<dt>
+								<h4 ng-bind="video.vName"></h4>
+							</dt>
+							<dd style="text-indent: 2em;" ng-bind="video.vIntroduce">
+								
+							</dd>
+						</dl>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row clearfix">
+			<div class="col-md-12 column comment">
+				<form role="form" novalidate>
+					
+					<div class="form-group">
+				   		<input type="text" class="form-control" ng-model="nickname" placeholder="Nickname">
+				  	</div>
+				  	
+				  	<div class="form-group">
+				   		<input type="text" class="form-control" ng-model="phone" placeholder="Phone">
+				  	</div>
+				  	
+				  	<div class="form-group">
+				   		<input type="text" class="form-control" ng-model="verifyCode" placeholder="Verification Code">
+				   		<button class="btn default-btn"> 发送验证码 </button>
+				  	</div>
+				  	
+				  	<div class="form-group">
+				  		<textarea class="form-control" rows="3" ng-model="comment"></textarea>
+				  	</div>
+				  	
+					<button class="btn default-btn" ng-click="sendCommentAndCreateVisitor()">确认发表评论</button>
+				</form>
+				
+			</div>
+			<div class="col-md-12 column">
+			
+				<div class="media-grids" ng-repeat="comment in commentList">
+					<div class="media comment">
+						<div class="media-left">
+							<!-- 头像 -->
+							<a href="">
+								
+							</a>
+						</div>
+						<div class="media-body">
+							<h5><a href="" class="username" ng-bind="comment.vUser.vuNickname"></a></h5>
+							<p ng-bind="comment.dcComment"></p>
+							<!--<span>View all posts by :<a href="#"> Admin </a></span>-->
+							<ul class="list-inline">
+  								<li>
+	  								<button class="btn btn-primary" ng-disabled="!comment.fabBtn" ng-click="commentFabsAction(comment)">
+									 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+									 	<span class="badge" ng-bind="comment.fabulousCounts"></span>
+									</button>
+  								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+						<tm-pagination conf="paginationConf"></tm-pagination>
+					</div>
+				</div> 
+			
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 column">
+		<div class="row clearfix" ng-repeat="recommend in recommendList">
+			<div class="col-md-3 resent-grid recommended-grid">
+				<div class="resent-grid-img recommended-grid-img">
+					<a href="" ng-click="toDetail(recommend)"><img src="static/images/r1.jpg" alt="" /></a>
+					<!-- <div class="time small-time">
+						<p>50集全</p>
+					</div> -->
+				</div>
+			</div>
+			<div class="col-md-3 ">
+				<div class="resent-grid-info recommended-grid-info video-info-grid">
+					<h5>
+						<a href="" class="title" ng-click="toDetail(video)" ng-bind="recommend.vName"></a>
+					</h5>
+					<p class="views views-info" ng-bind="recommend.managerUser.mNickname"></p>
+					<p class="views views-info" ng-bind="recommend.vTitle"></p>
+				</div>
+			</div>
+
+			<div class="clearfix">
+			</div><hr noshade="noshade" />
+		</div>
+		
+	</div>
+</div>
+
+

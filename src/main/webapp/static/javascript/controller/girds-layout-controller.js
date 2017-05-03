@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('GirdsLayoutCtrl', function ($scope, $rootScope,$stateParams,commonservice) {
+    .controller('GirdsLayoutCtrl', function ($scope, $rootScope,$stateParams,commonservice,$state) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -119,5 +119,14 @@ angular.module('vShow')
     		return false;
     	}
     	
+    	/**
+    	 * 路由切换到 详情页
+    	 */
+    	$scope.toDetail = function(video){
+    		var param = {"vId":video.vId,"vSecId":video.vSecId};
+    		$state.go('maincontent.detail',param,{reload:true});
+    		
+    		return false;
+    	}
     	
     });

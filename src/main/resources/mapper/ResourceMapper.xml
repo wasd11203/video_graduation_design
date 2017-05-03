@@ -14,6 +14,7 @@
 		<result column="VI_TITLE" property="vTitle"/>	
 		<result column="VI_NAME" property="vName"/>
 		<result column="DURATION" property="duration"/>
+		<result column="V_SEC_ID" property="vSecId"/>
 		<association property="managerUser" resultMap="MANAGER_RESULT_MAP"></association>		
 	</resultMap>
 	
@@ -53,6 +54,7 @@
 			video.VI_NAME,
 			video.VI_PIC,
 			video.DURATION,
+			video.V_SEC_ID,
 			manager.M_ID,
 			manager.M_NICKNAME,
 			manager.M_PIC
@@ -86,6 +88,7 @@
 			video.VI_TITLE,
 			video.VI_NAME,
 			video.VI_PIC,
+			video.V_SEC_ID,
 			video.DURATION,
 			manager.M_ID,
 			manager.M_NICKNAME,
@@ -101,6 +104,34 @@
 			</if>
 			<if test="vSecId != null">
 				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
+			</if>
+		</where>
+		ORDER BY top.V_TOP_ID ASC,sec.V_SEC_ID ASC, video.VI_ID DESC 
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="selectRecommendResourceBySecId" parameterType="Map" resultMap="RESOURCE_RESULT_MAP">
+		SELECT
+			video.VI_ID,
+			video.VI_TITLE,
+			video.VI_NAME,
+			video.VI_PIC,
+			video.DURATION,
+			video.V_SEC_ID,
+			manager.M_ID,
+			manager.M_NICKNAME,
+			manager.M_PIC
+		FROM
+			v_top_category top
+		LEFT JOIN v_sec_category sec ON top.V_TOP_ID = sec.V_TOP_ID
+		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
+		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
+		<where>
+			<if test="vSecId != null">
+				sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
+			</if>
+			<if test="vId != null">
+				OR video.VI_ID = #{vId,jdbcType=DECIMAL}
 			</if>
 		</where>
 		ORDER BY top.V_TOP_ID ASC,sec.V_SEC_ID ASC, video.VI_ID DESC 
@@ -125,7 +156,6 @@
 		</where>
 	</select>
 
-
 	<select id="selectResourceByKeywords" parameterType="Map" resultMap="RESOURCE_RESULT_MAP">
 		SELECT
 			video.VI_ID,
@@ -133,6 +163,7 @@
 			video.VI_NAME,
 			video.VI_PIC,
 			video.DURATION,
+			video.V_SEC_ID,
 			manager.M_ID,
 			manager.M_NICKNAME,
 			manager.M_PIC

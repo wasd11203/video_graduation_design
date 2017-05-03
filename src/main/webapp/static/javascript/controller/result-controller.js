@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('ResultCtrl', function ($scope, $rootScope,$stateParams,commonservice) {
+    .controller('ResultCtrl', function ($scope, $rootScope,$stateParams,commonservice,$state) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -29,9 +29,9 @@ angular.module('vShow')
 	    $scope.paginationConf = {
             currentPage: 1,//当前页
             totalItems: 0,//所有的记录数
-            itemsPerPage: 4,//每页的记录数
+            itemsPerPage: 15,//每页的记录数
             pagesLength: 15,// 用于计算可被点击的总页数
-            perPageOptions: [4],// 用于选择的 每页显示的记录数 数组
+            perPageOptions: [15],// 用于选择的 每页显示的记录数 数组
             onChange: function(){
             	
             	params.curPage = $scope.paginationConf.currentPage;
@@ -55,6 +55,16 @@ angular.module('vShow')
     		}, function(res) {
     			alert(res.status);
     		});
+    	}
+    	
+    	/**
+    	 * 路由切换到 详情页
+    	 */
+    	$scope.toDetail = function(video){
+    		var param = {"vId":video.vId,"vSecId":video.vSecId};
+    		$state.go('maincontent.detail',param,{reload:true});
+    		
+    		return false;
     	}
     	
     });

@@ -37,6 +37,13 @@ public interface ResourceService {
 	public List<Resource> getResourceListByNav(Map<String, Object> map);
 	
 	/**
+	 * 获取指定的二级菜单下的推荐的视频列表
+	 * @param map
+	 * @return
+	 */
+	public List<Resource> getRecommendResourceBySecId(Map<String, Object> map);
+	
+	/**
 	 * 获取指定的一级菜单,二级菜单下的视频总数
 	 * @param map
 	 * @return

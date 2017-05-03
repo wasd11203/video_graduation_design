@@ -31,6 +31,20 @@
 			</if>		
 		</where>
 		ORDER BY dir_comment.DC_INTIME DESC
+		limit #{startIndex},#{pageSize}
+	</select>
+	
+	<select id="selectCommentsCountByVid" parameterType="Map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			v_direct_comment dir_comment
+		LEFT JOIN v_visitor_user vuser ON dir_comment.VU_ID = vuser.VU_ID
+		<where>
+			<if test="vId != null">
+				dir_comment.VI_ID = #{vId,jdbcType=DECIMAL}
+			</if>		
+		</where>
 	</select>
 	
 	<insert id="insertComment" parameterType="Map" >

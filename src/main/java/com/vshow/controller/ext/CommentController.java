@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,22 +26,36 @@ import com.vshow.service.CommentService;
 @RequestMapping("/comment")
 public class CommentController extends BasicController{
 
+	@Value("${result.pageSize}")
+	private String resultPageSize;
+	
 	@Autowired
 	private CommentService commentService;
 	
 	@RequestMapping("/list/json")
 	@ResponseBody
-	public List<Comment> getCommentList(String vId){
+	public JSONObject getCommentList(String vId,Integer curPage){
 
 		logger.info("根据视频Id:[{}]列出视频对应的评论",vId);
 		
+		JSONObject jobj = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
 		Integer id = new Integer(vId);
 		
+		Integer pageSize = new Integer(resultPageSize);
+		
+		int startIndex = (curPage-1)*pageSize;
+		
 		map.put("vId", id);
+		map.put("startIndex", startIndex);
+		map.put("pageSize", pageSize);
 		
 		List<Comment> comments = commentService.getCommentListByVid(map);
-		return comments;	
+		int count = commentService.getCommentsCountByVid(map);
+		jobj.put("list", comments);
+		jobj.put("count", count);
+		
+		return jobj;
 	}
 	
 	@RequestMapping("/create")

@@ -30,6 +30,13 @@ public interface ResourceMapper {
 	public List<Resource> selectResourceByNav(Map<String, Object> map);
 	
 	/**
+	 * 获取指定的二级菜单下的推荐的视频列表
+	 * @param map
+	 * @return
+	 */
+	public List<Resource> selectRecommendResourceBySecId(Map<String, Object> map);
+	
+	/**
 	 * 获取指定的一级菜单,二级菜单下的视频总数
 	 * @param map
 	 * @return

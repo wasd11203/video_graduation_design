@@ -20,14 +20,21 @@ public class VisitorUserServiceImpl implements VisitorUserService {
 	private VisitorUserMapper visitorMapper;
 	
 	@Override
-	public int addVisitorUser(Map<String, Object> map) {
+	public Integer addVisitorUser(Map<String, Object> map) {
 		Long time = System.currentTimeMillis();
 		Integer vuId = new Integer(time.intValue());
 		
 		map.put("vuId", vuId);
 		map.put("vuIntime", new Date());
 		
-		return visitorMapper.insertVisitorUser(map);
+		int row = visitorMapper.insertVisitorUser(map);
+		
+		if(row > 0){
+			return vuId;
+		}else{
+			return null;
+		}
+		
 	}
 
 }

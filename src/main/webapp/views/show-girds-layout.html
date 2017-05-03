@@ -19,14 +19,14 @@
 		<div class="row clearfix">
 			<div class="col-md-3 resent-grid recommended-grid" ng-repeat="video in navAndVideos.secList[navAndVideos.curIndex].videos">
 				<div class="resent-grid-img recommended-grid-img">
-					<a href="single.html"><img src="static/images/r1.jpg" alt="" /></a>
+					<a href="" ng-click="toDetail(video)"><img src="static/images/r1.jpg" alt="" /></a>
 					<!-- <div class="time small-time">
 						<p>50集全</p>
 					</div> -->
 				</div>
 				<div class="resent-grid-info recommended-grid-info video-info-grid">
 					<h5>
-						<a href="single.html" class="title">{{video.vName}}</a>
+						<a href="" ng-click="toDetail(video)" class="title">{{video.vName}}</a>
 					</h5>
 					<p class="views views-info">{{video.vTitle}}</p>
 				</div>

@@ -16,7 +16,7 @@ public interface VisitorUserService {
 	 * @param map
 	 * @return
 	 */
-	public int addVisitorUser(Map<String, Object> map);
+	public Integer addVisitorUser(Map<String, Object> map);
 	
 	
 }

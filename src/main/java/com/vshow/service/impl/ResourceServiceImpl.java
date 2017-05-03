@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.vshow.entity.Resource;
@@ -18,6 +19,9 @@ import com.vshow.service.ResourceService;
 public class ResourceServiceImpl implements ResourceService {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Value("${home.pageSize}")
+	private String pageSize;
 	
 	@Autowired
 	private ResourceMapper resourceMapper;
@@ -63,6 +67,14 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	public TopNav getSecNavByTopId(Map<String, Object> map) {
 		return resourceMapper.selectSecNavByTopId(map);
+	}
+
+	@Override
+	public List<Resource> getRecommendResourceBySecId(Map<String, Object> map) {
+		map.put("startIndex", 0);
+		map.put("pageSize", new Integer(pageSize));
+		
+		return resourceMapper.selectRecommendResourceBySecId(map);
 	}
 
 }
