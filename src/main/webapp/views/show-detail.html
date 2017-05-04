@@ -30,8 +30,8 @@
 					<div class="col-md-2 column">
 						<ul class="list-unstyled">
 							<li class="">
-								<button class="btn btn-primary" ng-disabled="!video.fabBtn" ng-click="videoFabsAction(video)">
-								 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+								<button class="btn btn-primary" ng-click="videoFabsAction(video)">
+								 	<span class="glyphicon glyphicon-heart" aria-hidden="true" ng-style="videoFabStyle"></span>
 								 	<span class="badge" ng-bind="video.fabulousCounts"></span>
 								</button>
 							</li>
@@ -65,26 +65,26 @@
 		
 		<div class="row clearfix">
 			<div class="col-md-12 column comment">
-				<form role="form" novalidate>
+				<form role="form" novalidate ng-submit="sendCommentAndCreateVisitor()">
 					
 					<div class="form-group">
-				   		<input type="text" class="form-control" ng-model="nickname" placeholder="Nickname">
+				   		<input type="text" required class="form-control" ng-model="nickname" placeholder="Nickname">
 				  	</div>
 				  	
 				  	<div class="form-group">
-				   		<input type="text" class="form-control" ng-model="phone" placeholder="Phone">
+				   		<input type="text" required class="form-control" ng-model="phone" placeholder="Phone">
 				  	</div>
 				  	
 				  	<div class="form-group">
-				   		<input type="text" class="form-control" ng-model="verifyCode" placeholder="Verification Code">
-				   		<button class="btn default-btn"> 发送验证码 </button>
+				   		<input type="text" required class="form-control" ng-model="verifyCode" placeholder="Verification Code">
+				   		<button class="btn default-btn" ng-click="sendVerifyCodeBtn();" ng-disabled="btnDisabled" ng-bind="btnContent"> </button>
 				  	</div>
 				  	
 				  	<div class="form-group">
-				  		<textarea class="form-control" rows="3" ng-model="comment"></textarea>
+				  		<textarea class="form-control" required rows="3" ng-model="comment"></textarea>
 				  	</div>
 				  	
-					<button class="btn default-btn" ng-click="sendCommentAndCreateVisitor()">确认发表评论</button>
+					<button type="submit" class="btn default-btn">确认发表评论</button>
 				</form>
 				
 			</div>
@@ -104,8 +104,8 @@
 							<!--<span>View all posts by :<a href="#"> Admin </a></span>-->
 							<ul class="list-inline">
   								<li>
-	  								<button class="btn btn-primary" ng-disabled="!comment.fabBtn" ng-click="commentFabsAction(comment)">
-									 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+	  								<button class="btn btn-primary" ng-click="commentFabsAction(comment)">
+									 	<span class="glyphicon glyphicon-heart" aria-hidden="true" ng-style="commentFabStyle"></span>
 									 	<span class="badge" ng-bind="comment.fabulousCounts"></span>
 									</button>
   								</li>

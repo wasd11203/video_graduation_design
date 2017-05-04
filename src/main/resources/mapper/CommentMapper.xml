@@ -56,7 +56,7 @@
 			<if test="vId != null">
 				VI_ID,
 			</if>
-			<if test="dcComment != null">
+			<if test="dcComment != null and dcComment != ''">
 				DC_COMMENT,
 			</if>
 			<if test="dcIntime != null ">

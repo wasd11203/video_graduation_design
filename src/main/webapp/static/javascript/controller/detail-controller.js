@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('DetailCtrl', function ($scope, $rootScope,$sce,commonservice,$state,$stateParams) {
+    .controller('DetailCtrl', function ($scope, $rootScope,$sce,commonservice,$state,$stateParams,$interval) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -17,11 +17,52 @@ angular.module('vShow')
     	
     	console.log($stateParams);
     	
+    	/**
+    	 * 配置 点赞后的样式
+    	 */
+    	$scope.fabStyle = {
+	        "color" : "red",
+	    }
+    	/**
+    	 * 配置 取消点赞后的样式
+    	 */
+    	$scope.unfabStyle = {
+	    }
+    	
     	$scope.initCtrl = function(){
     		$scope.loadVideoDetailAction();
     		$scope.loadVideoCommentsAction(1);
     		$scope.loadRecommendResource();
     	}
+    	
+    	/**
+    	 * 点击发送验证码
+    	 */
+    	var count = 50;
+    	var timer = null;
+    	$scope.btnDisabled = false;
+    	$scope.btnContent = '发送验证码';
+    	$scope.sendVerifyCodeBtn = function(){
+    		$scope.btnDisabled = true;
+    		if(!timer){
+    			timer=$interval(function(){
+    				
+	   	       	     $scope.btnContent = count+'S';
+	   	       	     count--;
+	   	       	     if(count == 0){
+	   	       	    	 if(timer){
+	   	       	    		 $scope.btnDisabled = false;
+	   	       	    		 $scope.btnContent = '发送验证码';
+	   	       	    		 $interval.cancel(timer);
+	   	       	    		 timer = null;
+	   	       	    	 }
+	   	       	     }
+	   	       	},1000);   //间隔2秒定时执行
+    		}
+    		
+    		return false;
+    	}
+    	
     	
     	/**
 	     * 分页插件配置
@@ -87,6 +128,12 @@ angular.module('vShow')
     			video.fabulousCounts ++;
     		}
     		video.fabBtn = !video.fabBtn;
+    		
+    		if(video.fabBtn){
+    			$scope.videoFabStyle = $scope.unfabStyle;
+    		}else{
+    			$scope.videoFabStyle = $scope.fabStyle;
+    		}
     		
     		var url = "detail/video/fabs";
     		var param = {"vId":video.vId,"upFab":type};
@@ -195,7 +242,14 @@ angular.module('vShow')
     		}else{
     			comment.fabulousCounts ++;
     		}
+    		
     		comment.fabBtn = !comment.fabBtn;
+    		
+    		if(comment.fabBtn){
+    			$scope.commentFabStyle = $scope.unfabStyle;
+    		}else{
+    			$scope.commentFabStyle = $scope.fabStyle;
+    		}
     		
     		var param = {"dcId":comment.dcId,"upFab":type};
     		
