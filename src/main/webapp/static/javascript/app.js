@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name workbenchApp
+ * @name vShow
  * @description
- * # workbenchApp
+ * # vShow
  *
  * Main module of the application.
  */
@@ -30,7 +30,7 @@ angular.module(
 		url : '/maincontent',
 		views:{
 			'maincontent':{
-				templateUrl : 'views/maincontent.html',
+				templateUrl : 'views/visitor-views/maincontent.html',
 				controller : 'MaincontentCtrl',
 				controllerAs : 'maincontentCtrl'
 			}
@@ -43,7 +43,7 @@ angular.module(
 	.state('maincontent.girdslayout', {
 		url : '/girdslayout?:vTopId',
 		cache:false, 
-		templateUrl : 'views/show-girds-layout.html',
+		templateUrl : 'views/visitor-views/show-girds-layout.html',
 		controller : 'GirdsLayoutCtrl',
 		controllerAs : 'girdsLayoutCtrl'
 	})
@@ -53,7 +53,7 @@ angular.module(
 	.state('maincontent.listbytop', {
 		url : '/listbytop?:vTopId',
 		cache:false, 
-		templateUrl : 'views/list-videos-bytop.html',
+		templateUrl : 'views/visitor-views/list-videos-bytop.html',
 		controller : 'ListByTopCtrl',
 		controllerAs : 'listByTopCtrl'
 	})
@@ -65,7 +65,7 @@ angular.module(
 		cache:false, 
 		views:{
 			'':{
-				templateUrl : 'views/result.html',
+				templateUrl : 'views/visitor-views/result.html',
 				controller : 'ResultCtrl',
 				controllerAs : 'resultCtrl'
 			}
@@ -81,7 +81,7 @@ angular.module(
 		cache:false, 
 		views:{
 			'':{
-				templateUrl : 'views/show-detail.html',
+				templateUrl : 'views/visitor-views/show-detail.html',
 				controller : 'DetailCtrl',
 				controllerAs : 'DetailCtrl'
 			}

@@ -51,7 +51,7 @@ form.navbar-form.navbar-right {
     border: 1px solid #ccc;
 }
 .top-search form input[type="submit"] {
-    background: url(../images/9.png) no-repeat 0px 0px !important;
+    background: url(../../images/9.png) no-repeat 0px 0px !important;
     width: 18px !important;
     height: 18px !important;
     border: none !important;
