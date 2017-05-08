@@ -175,6 +175,8 @@
 				video.VI_TITLE like '%${keywords}%'
 				OR 
 				manager.M_NICKNAME like '%${keywords}%'
+				OR
+				video.VI_NAME like '%${keywords}%'
 			</if>
 		</where>
 		ORDER BY video.V_SEC_ID DESC, video.VI_ID DESC 
@@ -192,6 +194,8 @@
 				video.VI_TITLE like '%${keywords}%'
 				OR 
 				manager.M_NICKNAME like '%${keywords}%'
+				OR
+				video.VI_NAME like '%${keywords}%'
 			</if>
 		</where>
 	</select>

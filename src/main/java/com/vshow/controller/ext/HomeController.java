@@ -85,7 +85,7 @@ public class HomeController extends BasicController{
 	@ResponseBody
 	public JSONObject searchByMark(String keywords,int curPage){
 		
-		logger.info("根据关键字:[{}] 列出视频列表的第:[{}]页,可列出[{}]个视频",keywords,curPage,homePageSize);
+		logger.info("根据关键字:[{}] 列出视频列表的第:[{}]页,可列出[{}]个视频",keywords,curPage,resultPageSize);
 		
 		JSONObject jobj = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>() ;
