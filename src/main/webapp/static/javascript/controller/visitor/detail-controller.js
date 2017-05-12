@@ -78,27 +78,6 @@ angular.module('vShow')
 	            }
 	        };
     	
-    	$scope.config = {
-			sources: [
-				{
-					src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"),
-					type: "video/webm"
-				}
-			],
-			tracks: [{
-				src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
-				kind: "subtitles",
-				srclang: "en",
-				label: "English",
-				default: ""
-			}],
-			theme: "static/bower_components/videogular-themes-default/videogular.css",
-			plugins: {
-				poster: "http://www.videogular.com/assets/images/videogular.png"
-			}
-		};
-    	
-    	
     	/**
     	 * 加载视频详细信息
     	 */
@@ -110,6 +89,28 @@ angular.module('vShow')
     			console.info("当前视频详细信息",res.data);
     			$scope.video = res.data;
     			$scope.video.fabBtn = true;
+    			
+    			
+    	    	$scope.config = {
+    	    			sources: [
+    	    				{
+    	    					src: $sce.trustAsResourceUrl($scope.video.vPath),
+    	    					type: "video/webm"
+    	    				}
+    	    			],
+    	    			tracks: [{
+    	    				src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
+    	    				kind: "subtitles",
+    	    				srclang: "en",
+    	    				label: "English",
+    	    				default: ""
+    	    			}],
+    	    			theme: "static/bower_components/videogular-themes-default/videogular.css",
+    	    			plugins: {
+    	    				poster: "http://www.videogular.com/assets/images/videogular.png"
+    	    			}
+    	    		};
+    			
     		},function(res){
     			alert(res.status);
     		});
