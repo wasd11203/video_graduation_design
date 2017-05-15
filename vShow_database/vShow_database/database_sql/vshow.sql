@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-05-03 19:02:31
+Date: 2017-05-15 16:23:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,8 @@ CREATE TABLE `v_direct_comment` (
 -- ----------------------------
 -- Records of v_direct_comment
 -- ----------------------------
-INSERT INTO `v_direct_comment` VALUES ('1', '12', '干的好，', '2017-05-03 19:00:59', '0', '7', '1');
+INSERT INTO `v_direct_comment` VALUES ('-673694865', '12', '干的不错！！！', '2017-05-11 11:25:59', '0', '0', '-673694966');
+INSERT INTO `v_direct_comment` VALUES ('1', '12', 'asdfasdf', '2017-05-11 14:22:14', '0', '7', '1');
 INSERT INTO `v_direct_comment` VALUES ('2', '12', '可以的，', '2017-05-03 19:01:05', '0', '8', '2');
 
 -- ----------------------------
@@ -73,7 +74,7 @@ CREATE TABLE `v_manager` (
 -- ----------------------------
 -- Records of v_manager
 -- ----------------------------
-INSERT INTO `v_manager` VALUES ('1', 'Admin', 'AA', '15727575679', '123456', '2017-04-29 17:25:11', null);
+INSERT INTO `v_manager` VALUES ('1', 'Admin', 'AA', '15727575679', '123456', '2017-05-15 15:52:45', 'http://127.0.0.1:8081/monitor/upload/icon/ee5cff69-e6f8-489c-b35c-da1542194009.png');
 
 -- ----------------------------
 -- Table structure for `v_sec_category`
@@ -147,24 +148,27 @@ CREATE TABLE `v_video_info` (
   `ISDEL` int(11) DEFAULT NULL COMMENT '删除标识(1:删除；0:未删除)',
   `V_SEC_ID` int(11) DEFAULT NULL COMMENT '二级分类_ID',
   `M_ID` int(11) DEFAULT NULL COMMENT '管理员_ID',
+  `INTIME` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '视频入库时间',
+  `DISCOMMENT` int(11) DEFAULT '0' COMMENT '禁止品论标识',
+  `INVALID` int(11) unsigned zerofill DEFAULT NULL COMMENT '视频是否上架标识：0 有效，1 无效',
   PRIMARY KEY (`VI_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='视频信息';
 
 -- ----------------------------
 -- Records of v_video_info
 -- ----------------------------
-INSERT INTO `v_video_info` VALUES ('1', '正义的电视剧', '人民的名义', '', '主演：陆毅，张丰毅', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1001', '1');
-INSERT INTO `v_video_info` VALUES ('2', '修仙', '折天记', '', '主演：鹿晗，古力娜扎', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1001', '1');
-INSERT INTO `v_video_info` VALUES ('3', '都市', '御姐归来', '', '主演：安以轩，朱一龙', '', '111', '100', '100', '0', '1001', '1');
-INSERT INTO `v_video_info` VALUES ('4', '医护', '外科风云', '', '主演：靳东，白百合', '', '119', '100', '100', '0', '1001', '1');
-INSERT INTO `v_video_info` VALUES ('5', '高能', '太阳的后裔', '', '主演：宋仲基，宋慧乔', '', '100', '100', '100', '0', '1002', '1');
-INSERT INTO `v_video_info` VALUES ('6', '奇幻', '来自星星的你', '', '导演：张太侑', '', '100', '100', '100', '0', '1002', '1');
-INSERT INTO `v_video_info` VALUES ('7', '言情', '请回答1988', '', '导演：申元浩', '', '100', '100', '100', '0', '1002', '1');
-INSERT INTO `v_video_info` VALUES ('8', '精彩瞬间', '保罗集锦 29分8助真正的领袖带领快船返航洛杉矶抢7', null, '保罗--领袖', '', '100', '100', '100', '0', '3004', '1');
-INSERT INTO `v_video_info` VALUES ('9', '精彩!!!', '刷不停！詹姆斯进球数超韦斯特升第19位', '', '詹姆斯--升第19位', '', '100', '100', '100', '0', '3004', '1');
-INSERT INTO `v_video_info` VALUES ('10', 'TOP时刻', 'NBA五佳球 沃尔送钉板大帽保罗杂耍上篮', '', '上篮', '', '100', '100', '100', '0', '3004', '1');
-INSERT INTO `v_video_info` VALUES ('11', '创意', '这想象力没谁了！盘点常规赛10大最具创意过人', '', '过人', '', '102', '100', '100', '0', '3004', '1');
-INSERT INTO `v_video_info` VALUES ('12', '集锦', '勇士110', null, '库里---集锦', '', '50', '1000', '18', '0', '3004', '1');
+INSERT INTO `v_video_info` VALUES ('1', '正义的电视剧', '人民的名义', '', '主演：陆毅，张丰毅', 'http://static.videogular.com/assets/videos/videogular.webm', '110', '100', '100', '0', '1001', '1', '2017-05-15 16:22:03', '0', null);
+INSERT INTO `v_video_info` VALUES ('2', '修仙', '折天记', '', '主演：鹿晗，古力娜扎', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1001', '1', '2017-05-11 11:23:17', null, null);
+INSERT INTO `v_video_info` VALUES ('3', '都市', '御姐归来', '', '主演：安以轩，朱一龙', 'http://static.videogular.com/assets/videos/videogular.webm', '115', '100', '100', '0', '1001', '1', '2017-05-12 18:44:13', null, null);
+INSERT INTO `v_video_info` VALUES ('4', '医护', '外科风云', '', '主演：靳东，白百合', 'http://static.videogular.com/assets/videos/videogular.webm', '136', '100', '98', '0', '1001', '1', '2017-05-12 18:44:14', null, null);
+INSERT INTO `v_video_info` VALUES ('5', '高能', '太阳的后裔', '', '主演：宋仲基，宋慧乔', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1002', '1', '2017-05-12 18:44:14', null, null);
+INSERT INTO `v_video_info` VALUES ('6', '奇幻', '来自星星的你', '', '导演：张太侑', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1002', '1', '2017-05-12 18:44:15', null, null);
+INSERT INTO `v_video_info` VALUES ('7', '言情', '请回答1988', '', '导演：申元浩', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '1002', '1', '2017-05-12 18:44:15', null, null);
+INSERT INTO `v_video_info` VALUES ('8', '精彩瞬间', '保罗集锦 29分8助真正的领袖带领快船返航洛杉矶抢7', null, '保罗--领袖', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '3004', '1', '2017-05-12 18:44:16', null, null);
+INSERT INTO `v_video_info` VALUES ('9', '精彩!!!', '刷不停！詹姆斯进球数超韦斯特升第19位', '', '詹姆斯--升第19位', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '3004', '1', '2017-05-12 18:44:16', null, null);
+INSERT INTO `v_video_info` VALUES ('10', 'TOP时刻', 'NBA五佳球 沃尔送钉板大帽保罗杂耍上篮', '', '上篮', 'http://static.videogular.com/assets/videos/videogular.webm', '100', '100', '100', '0', '3004', '1', '2017-05-15 16:09:16', '0', null);
+INSERT INTO `v_video_info` VALUES ('11', '创意', '这想象力没谁了！盘点常规赛10大最具创意过人', '', '过人', 'http://static.videogular.com/assets/videos/videogular.webm', '102', '100', '100', '0', '3004', '1', '2017-05-15 16:09:45', '0', null);
+INSERT INTO `v_video_info` VALUES ('12', '集锦', '勇士110', null, '库里---集锦', 'http://static.videogular.com/assets/videos/videogular.webm', '1', '1000', '1', '0', '3004', '1', '2017-05-15 16:09:33', '0', '00000000000');
 
 -- ----------------------------
 -- Table structure for `v_visitor_user`
@@ -182,6 +186,7 @@ CREATE TABLE `v_visitor_user` (
 -- ----------------------------
 -- Records of v_visitor_user
 -- ----------------------------
+INSERT INTO `v_visitor_user` VALUES ('-673694966', 'AAA', 'CC', '2017-05-05 17:02:04', '169.254.13.139');
 INSERT INTO `v_visitor_user` VALUES ('1', '15727575679', 'AA', '2017-04-30 09:51:33', '127.0.0.1');
 INSERT INTO `v_visitor_user` VALUES ('2', '18257155845', 'BB', '2017-04-30 09:53:11', '127.0.0.1');
 
