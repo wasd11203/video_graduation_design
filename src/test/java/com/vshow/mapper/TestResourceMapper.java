@@ -22,7 +22,7 @@ public class TestResourceMapper {
 	@Test
 	public void test1(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pageSize", 1);
+		map.put("pageSize", 5);
 		Object jobj = new Object();
 		jobj = JSON.toJSON(resourceMapper.selectNavAndResource(map));
 		System.out.println(jobj);

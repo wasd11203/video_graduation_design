@@ -1,6 +1,7 @@
 package com.vshow.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 视频的详细信息
@@ -54,6 +55,21 @@ public class ResourceDetail implements Serializable{
 	 * 删除标识
 	 */
 	private Integer isDel;
+	
+	/**
+	 * 上下架标识
+	 */
+	private Integer invalid;
+	/**
+	 * 可被评论标识
+	 */
+	private Integer disComment;
+	
+	/**
+	 * 入库时间
+	 */
+	private Date inTime;
+	
 	/**
 	 * 视频所属的二级菜单Id
 	 */
@@ -148,6 +164,30 @@ public class ResourceDetail implements Serializable{
 		this.isDel = isDel;
 	}
 
+	public Integer getInvalid() {
+		return invalid;
+	}
+
+	public void setInvalid(Integer invalid) {
+		this.invalid = invalid;
+	}
+
+	public Integer getDisComment() {
+		return disComment;
+	}
+
+	public void setDisComment(Integer disComment) {
+		this.disComment = disComment;
+	}
+
+	public Date getInTime() {
+		return inTime;
+	}
+
+	public void setInTime(Date inTime) {
+		this.inTime = inTime;
+	}
+
 	public Integer getvSecId() {
 		return vSecId;
 	}
@@ -173,9 +213,13 @@ public class ResourceDetail implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+				+ ((disComment == null) ? 0 : disComment.hashCode());
+		result = prime * result
 				+ ((duration == null) ? 0 : duration.hashCode());
 		result = prime * result
 				+ ((fabulousCounts == null) ? 0 : fabulousCounts.hashCode());
+		result = prime * result + ((inTime == null) ? 0 : inTime.hashCode());
+		result = prime * result + ((invalid == null) ? 0 : invalid.hashCode());
 		result = prime * result + ((isDel == null) ? 0 : isDel.hashCode());
 		result = prime * result
 				+ ((managerUser == null) ? 0 : managerUser.hashCode());
@@ -201,6 +245,11 @@ public class ResourceDetail implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		ResourceDetail other = (ResourceDetail) obj;
+		if (disComment == null) {
+			if (other.disComment != null)
+				return false;
+		} else if (!disComment.equals(other.disComment))
+			return false;
 		if (duration == null) {
 			if (other.duration != null)
 				return false;
@@ -210,6 +259,16 @@ public class ResourceDetail implements Serializable{
 			if (other.fabulousCounts != null)
 				return false;
 		} else if (!fabulousCounts.equals(other.fabulousCounts))
+			return false;
+		if (inTime == null) {
+			if (other.inTime != null)
+				return false;
+		} else if (!inTime.equals(other.inTime))
+			return false;
+		if (invalid == null) {
+			if (other.invalid != null)
+				return false;
+		} else if (!invalid.equals(other.invalid))
 			return false;
 		if (isDel == null) {
 			if (other.isDel != null)
@@ -270,8 +329,9 @@ public class ResourceDetail implements Serializable{
 				+ vName + ", vPic=" + vPic + ", vIntroduce=" + vIntroduce
 				+ ", vPath=" + vPath + ", playCounts=" + playCounts
 				+ ", duration=" + duration + ", fabulousCounts="
-				+ fabulousCounts + ", isDel=" + isDel + ", vSecId=" + vSecId
-				+ ", managerUser=" + managerUser + "]";
+				+ fabulousCounts + ", isDel=" + isDel + ", invalid=" + invalid
+				+ ", disComment=" + disComment + ", inTime=" + inTime
+				+ ", vSecId=" + vSecId + ", managerUser=" + managerUser + "]";
 	}
 	
 }

@@ -41,7 +41,12 @@
 		<result column="PLAY_COUNTS" property="playCounts"/>
 		<result column="DURATION" property="duration"/>
 		<result column="FABULOUS_COUNTS" property="fabulousCounts"/>
+		
 		<result column="ISDEL" property="isDel"/>
+		<result column="INVALID" property="invalid"/>
+		<result column="DISCOMMENT" property="disComment"/>
+		<result column="INTIME" property="inTime"/>
+		
 		<result column="V_SEC_ID" property="vSecId"/>
 							
 		<association property="managerUser" resultMap="MANAGER_RESULT_MAP"></association>		
@@ -72,10 +77,11 @@
 						COUNT(1)
 					FROM
 						v_video_info
-					WHERE
-						V_SEC_ID = video.V_SEC_ID
+					WHERE 
+						video.ISDEL != 1 AND video.INVALID != 1
+						AND V_SEC_ID = video.V_SEC_ID
 					AND VI_ID > video.VI_ID
-				)
+				) AND video.ISDEL != 1 AND video.INVALID != 1
 		) video ON sec.V_SEC_ID = video.V_SEC_ID
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		ORDER BY top.V_TOP_ID ASC,sec.V_SEC_ID ASC, video.VI_ID DESC 
@@ -99,8 +105,9 @@
 		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="vTopId != null">
-				top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
+				AND top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
 			</if>
 			<if test="vSecId != null">
 				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
@@ -127,8 +134,9 @@
 		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="vSecId != null">
-				sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
+				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
 			</if>
 			<if test="vId != null">
 				OR video.VI_ID = #{vId,jdbcType=DECIMAL}
@@ -147,8 +155,9 @@
 		LEFT JOIN v_video_info video ON sec.V_SEC_ID = video.V_SEC_ID
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="vTopId != null">
-				top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
+				AND top.V_TOP_ID = #{vTopId,jdbcType=DECIMAL}
 			</if>
 			<if test="vSecId != null">
 				AND sec.V_SEC_ID = #{vSecId,jdbcType=DECIMAL}
@@ -171,12 +180,15 @@
 			v_video_info video
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="keywords != null and keywords != ''">
-				video.VI_TITLE like '%${keywords}%'
-				OR 
-				manager.M_NICKNAME like '%${keywords}%'
-				OR
-				video.VI_NAME like '%${keywords}%'
+				AND (
+					video.VI_TITLE like '%${keywords}%'
+					OR 
+					manager.M_NICKNAME like '%${keywords}%'
+					OR
+					video.VI_NAME like '%${keywords}%'
+				)
 			</if>
 		</where>
 		ORDER BY video.V_SEC_ID DESC, video.VI_ID DESC 
@@ -190,12 +202,15 @@
 			v_video_info video
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="keywords != null and keywords != ''">
-				video.VI_TITLE like '%${keywords}%'
-				OR 
-				manager.M_NICKNAME like '%${keywords}%'
-				OR
-				video.VI_NAME like '%${keywords}%'
+				AND (
+					video.VI_TITLE like '%${keywords}%'
+					OR 
+					manager.M_NICKNAME like '%${keywords}%'
+					OR
+					video.VI_NAME like '%${keywords}%'
+				)
 			</if>
 		</where>
 	</select>
@@ -210,8 +225,9 @@
 			v_video_info video
 		LEFT JOIN v_manager manager ON video.M_ID = manager.M_ID
 		<where>
+			video.ISDEL != 1 AND video.INVALID != 1
 			<if test="vId != null">
-				video.VI_ID = #{vId,jdbcType=DECIMAL}
+				AND video.VI_ID = #{vId,jdbcType=DECIMAL}
 			</if>
 		</where>
 	</select>
@@ -252,6 +268,15 @@
 			<if test="isDel != null">
 				 ISDEL = #{isDel},
 			</if>
+			<if test="invalid != null">
+				 INVALID = #{invalid},
+			</if>
+			<if test="disComment != null">
+				 DISCOMMENT = #{disComment},
+			</if>
+			<if test="inTime != null">
+				 INTIME = #{inTime},
+			</if>
 			<if test="vSecId != null">
 				 V_SEC_ID = #{vSecId},
 			</if>
@@ -260,8 +285,9 @@
 			</if>
 		</trim>
 		<where>
+			ISDEL != 1 AND INVALID != 1
 			<if test="vId != null">
-				VI_ID = #{vId}
+				AND VI_ID = #{vId}
 			</if>
 		</where>
 	</update>

@@ -53,7 +53,7 @@ public class HomeController extends BasicController{
 		Map<String, Object> map = new HashMap<String, Object>() ;
 		JSONObject jobj = new JSONObject();
 		int vTop = Integer.parseInt(vTopId);
-		int pageSize = Integer.parseInt(resultPageSize);
+		int pageSize = Integer.parseInt(homePageSize);
 		int start = (curPage-1) * pageSize;
 		Integer vSec = null;
 		
