@@ -24,6 +24,11 @@ public class TopNav implements Serializable{
 	private String vTopName;
 	
 	/**
+	 * 一级菜单图标地址
+	 */
+	private String vTopIcon;
+	
+	/**
 	 * 一级菜单下的二级菜单列表
 	 */
 	private List<SecNav> secList;
@@ -48,6 +53,14 @@ public class TopNav implements Serializable{
 		this.vTopName = vTopName;
 	}
 
+	public String getvTopIcon() {
+		return vTopIcon;
+	}
+
+	public void setvTopIcon(String vTopIcon) {
+		this.vTopIcon = vTopIcon;
+	}
+
 	public List<SecNav> getSecList() {
 		return secList;
 	}
@@ -65,9 +78,9 @@ public class TopNav implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((secList == null) ? 0 : secList.hashCode());
+		result = prime * result + ((vTopIcon == null) ? 0 : vTopIcon.hashCode());
 		result = prime * result + ((vTopId == null) ? 0 : vTopId.hashCode());
-		result = prime * result
-				+ ((vTopName == null) ? 0 : vTopName.hashCode());
+		result = prime * result + ((vTopName == null) ? 0 : vTopName.hashCode());
 		return result;
 	}
 
@@ -85,6 +98,11 @@ public class TopNav implements Serializable{
 				return false;
 		} else if (!secList.equals(other.secList))
 			return false;
+		if (vTopIcon == null) {
+			if (other.vTopIcon != null)
+				return false;
+		} else if (!vTopIcon.equals(other.vTopIcon))
+			return false;
 		if (vTopId == null) {
 			if (other.vTopId != null)
 				return false;
@@ -100,8 +118,7 @@ public class TopNav implements Serializable{
 
 	@Override
 	public String toString() {
-		return "NavTopEntity [vTopId=" + vTopId + ", vTopName=" + vTopName
-				+ ", secList=" + secList + "]";
+		return "TopNav [vTopId=" + vTopId + ", vTopName=" + vTopName + ", vTopIcon=" + vTopIcon + ", secList=" + secList
+				+ "]";
 	}
-	
 }

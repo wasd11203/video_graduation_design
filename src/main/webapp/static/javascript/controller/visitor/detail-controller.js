@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('DetailCtrl', function ($scope, $rootScope,$sce,commonservice,$state,$stateParams,$interval) {
+    .controller('DetailCtrl', function ($scope,$sce,commonservice,$state,$stateParams,$interval) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -36,7 +36,7 @@ angular.module('vShow')
     	}
     	
     	/**
-    	 * 点击发送验证码
+    	 * 点击发送验证码 事件
     	 */
     	var count = 50;
     	var timer = null;
@@ -47,7 +47,7 @@ angular.module('vShow')
     		if(!timer){
     			timer=$interval(function(){
     				
-	   	       	     $scope.btnContent = count+'S';
+	   	       	     $scope.btnContent = count+'S 后可重发';
 	   	       	     count--;
 	   	       	     if(count == 0){
 	   	       	    	 if(timer){
@@ -58,7 +58,10 @@ angular.module('vShow')
 	   	       	    	 }
 	   	       	     }
 	   	       	},1000);   //间隔2秒定时执行
+    			
     		}
+    		
+    		$scope.sendVerifyCodeAction();
     		
     		return false;
     	}
@@ -69,7 +72,7 @@ angular.module('vShow')
 	     */
 	    $scope.paginationConf = {
 	            currentPage: 1,//当前页
-	            totalItems: 140,//所有的记录数
+	            totalItems: 0,//所有的记录数
 	            itemsPerPage: 15,//每页的记录数
 	            pagesLength: 8,// 用于计算可被点击的总页数
 	            perPageOptions: [15],// 用于选择的 每页显示的记录数 数组
@@ -78,6 +81,40 @@ angular.module('vShow')
 	            }
 	        };
     	
+	    /**
+	     * 告知后台发送验证码
+	     */
+	    $scope.sendVerifyCodeAction = function(){
+	    	$scope.errMsg = null;
+	    	var url = "visitor/send";
+    		var param = {"phone":$scope.phone};
+    		commonservice.postData(url,param).then(function(res){
+    			console.info("发送验证码结果",res.data);
+    			
+    			if(res.data.alibaba_aliqin_fc_sms_num_send_response){
+    				$scope.errMsg = null;
+    			}else{
+    				if(timer){
+  	       	    		 $scope.btnDisabled = false;
+  	       	    		 $scope.btnContent = '发送验证码';
+  	       	    		 $interval.cancel(timer);
+  	       	    		 timer = null;
+  	       	    	 }
+    				$scope.errMsg = "验证码发送失败";
+    			}
+    			
+    		},function(res){
+//    			alert(res.status);
+    			$scope.errMsg = "请重试";
+    			if(timer){
+       	    		 $scope.btnDisabled = false;
+       	    		 $scope.btnContent = '发送验证码';
+       	    		 $interval.cancel(timer);
+       	    		 timer = null;
+       	    	 }
+    		});
+	    }
+	    
     	/**
     	 * 加载视频详细信息
     	 */
@@ -172,14 +209,34 @@ angular.module('vShow')
     	 */
     	$scope.curVisitorId = '';
     	$scope.addVisitorAction = function(){
+    		$scope.errMsg = null;
     		var param = {"phone":$scope.phone,"nickname":$scope.nickname,"verifyCode":$scope.verifyCode};
     		var url = "visitor/create";
     		commonservice.postData(url,param).then(function(res){
     			console.info("新增访客",res.data);
-    			$scope.curVisitorId = res.data.vuId;
-    			$scope.createCommentAction();
+    			if(res.data.code == 0){
+    				$scope.errMsg = null;
+    				$scope.curVisitorId = res.data.vuId;
+        			$scope.createCommentAction();
+    			}else{
+    				$scope.errMsg = res.data.msg;
+    				if(timer){
+          	    		 $scope.btnDisabled = false;
+          	    		 $scope.btnContent = '发送验证码';
+          	    		 $interval.cancel(timer);
+          	    		 timer = null;
+          	    	 }
+    			}
+    			
     		},function(res){
-    			alert(res.status);
+    			$scope.errMsg = "请重试";
+//    			alert(res.status);
+    			if(timer){
+      	    		 $scope.btnDisabled = false;
+      	    		 $scope.btnContent = '发送验证码';
+      	    		 $interval.cancel(timer);
+      	    		 timer = null;
+      	    	 }
     		});
     	}
     	

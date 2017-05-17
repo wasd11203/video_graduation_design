@@ -65,7 +65,8 @@
 		
 		<div class="row clearfix">
 			<div class="col-md-12 column comment">
-				<form role="form" novalidate ng-submit="sendCommentAndCreateVisitor()">
+				<h2>评论发表区</h2>
+				<form role="form" ng-submit="sendCommentAndCreateVisitor()">
 					
 					<div class="form-group">
 				   		<input type="text" required class="form-control" ng-model="nickname" placeholder="Nickname">
@@ -76,15 +77,22 @@
 				  	</div>
 				  	
 				  	<div class="form-group">
-				   		<input type="text" required class="form-control" ng-model="verifyCode" placeholder="Verification Code">
-				   		<button class="btn default-btn" ng-click="sendVerifyCodeBtn();" ng-disabled="btnDisabled" ng-bind="btnContent"> </button>
+				  		<div class="input-group">
+							<input type="text" required class="form-control" ng-model="verifyCode" placeholder="Verification Code" />
+							<span class="input-group-btn">
+								<button class="btn btn-default" style="width: 170px;" type="button" ng-click="sendVerifyCodeBtn();" ng-bind="btnContent" ng-disabled="btnDisabled" >
+								</button>
+							</span>
+						</div>
+				  	
 				  	</div>
 				  	
 				  	<div class="form-group">
-				  		<textarea class="form-control" required rows="3" ng-model="comment"></textarea>
+				  		<textarea class="form-control" placeholder="看点槽点，不吐不快！别憋着，马上大声说出来吧！" required rows="4" ng-model="comment"></textarea>
 				  	</div>
 				  	
-					<button type="submit" class="btn default-btn">确认发表评论</button>
+					<button type="submit" class="btn btn-success pull-right">确认发表</button>
+					<label ng-if="errMsg" class="label label-danger" ng-bind="errMsg"></label>
 				</form>
 				
 			</div>
@@ -124,16 +132,19 @@
 		</div>
 	</div>
 	<div class="col-md-4 column">
+		<h4>相关推荐</h4>
 		<div class="row clearfix" ng-repeat="recommend in recommendList">
-			<div class="col-md-3 resent-grid recommended-grid">
-				<div class="resent-grid-img recommended-grid-img">
-					<a href="" ng-click="toDetail(recommend)"><img src="static/images/r1.jpg" alt="" /></a>
+			<div class="col-md-4 resent-grid recommended-grid clearPadding">
+				<div class="resent-grid-img recommended-grid-img recommended">
+					<a href="" ng-click="toDetail(recommend)">
+						<img ng-src="{{recommend.vPic}}" alt="视频显示图片" width="320" height="180" />
+					</a>
 					<!-- <div class="time small-time">
 						<p>50集全</p>
 					</div> -->
 				</div>
 			</div>
-			<div class="col-md-3 ">
+			<div class="col-md-8 clearPadding ">
 				<div class="resent-grid-info recommended-grid-info video-info-grid">
 					<h5>
 						<a href="" class="title" ng-click="toDetail(video)" ng-bind="recommend.vName"></a>

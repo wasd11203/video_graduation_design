@@ -15,11 +15,12 @@
 					</div>
 					<div class="collapse navbar-collapse" id="navbar-collapse">
 						<ul class="nav navbar-nav">
-							<li ng-class="{'active':list.curIndex == $index}" ng-repeat="name in list"><a href=""
-								class="menu2" ng-click="go(name.V_TOP_ID,$index);"> <span
-									class="glyphicon glyphicon-film" aria-hidden="true"> </span>
-									{{name.V_TOP_NAME}}
-							</a></li>
+							<li ng-class="{'active':list.curIndex == $index}" ng-repeat="name in list">
+								<a href="" class="menu2" ng-click="go(name.V_TOP_ID,$index);"> 
+									<img ng-src="{{name.V_TOP_ICON}}" alt="类别图标" width="30" height="30"/>
+									<label class="label label-default" >{{name.V_TOP_NAME}}</label>
+								</a>
+							</li>
 
 							<!-- <li ng-repeat="name in list" ui-sref="maincontent.right({'secId':$index})" >{{name}}</li> -->
 

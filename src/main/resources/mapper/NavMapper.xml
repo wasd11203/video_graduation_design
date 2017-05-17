@@ -5,7 +5,8 @@
 	<select id="selectTopNav" resultType="Map">
 		SELECT
 		top.V_TOP_ID,
-		top.V_TOP_NAME
+		top.V_TOP_NAME,
+		top.V_TOP_ICON
 		FROM
 		v_top_category top
 	</select>

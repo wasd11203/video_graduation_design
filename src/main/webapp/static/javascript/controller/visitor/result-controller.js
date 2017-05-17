@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('ResultCtrl', function ($scope, $rootScope,$stateParams,commonservice,$state) {
+    .controller('ResultCtrl', function ($scope, $stateParams,commonservice,$state) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',

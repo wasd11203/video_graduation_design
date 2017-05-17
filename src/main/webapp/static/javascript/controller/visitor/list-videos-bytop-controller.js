@@ -84,19 +84,18 @@ angular.module('vShow').controller('ListByTopCtrl',
 					$scope.data = res.data;
 					$scope.param.vSecId = $scope.data.top.secList[0].vSecId;
 
-					$scope.data.top.minIndex = 0;
 					$scope.data.top.maxIndex = 4;
-					$scope.data.top.navPageSize = 4;
-
-					$scope.data.top.preDisabled = true;
-					if($scope.data.top.maxIndex > $scope.data.top.secList.length-1){
-//    					alert("禁止下一页");
-						$scope.data.top.nextDisabled = true;
-    				}else{
-    					$scope.data.top.nextDisabled = false;
-    				}
+					$scope.data.top.leftList = [];
+					$scope.data.top.dropList = [];
+					for(var i = 0;i<$scope.data.top.secList.length;i++){
+						if(i>= $scope.data.top.maxIndex){
+							$scope.data.top.dropList.push($scope.data.top.secList[i]);
+						}else{
+							$scope.data.top.leftList.push($scope.data.top.secList[i]);
+						}
+					}
 					
-					$scope.list = $scope.data.list;
+					$scope.list = $scope.data.list;  
 
 					if($scope.list[0] == null){
 						$scope.paginationConf.totalItems = 0;
@@ -109,50 +108,6 @@ angular.module('vShow').controller('ListByTopCtrl',
 				});
 			}
 
-			/**
-			 * 修改二级菜单的显示
-			 */
-			$scope.changeSecNavShow = function(top, type) {
-
-				switch (type) {
-				case 1:
-					
-					var min = top.minIndex + top.navPageSize;
-					var max = top.maxIndex + top.navPageSize;
-
-					if (max > top.secList.length-1) {
-						// alert("禁止下一页");
-						top.nextDisabled = true;
-						top.preDisabled = false;
-					} else {
-						top.nextDisabled = false;
-						top.preDisabled = false;
-					}
-					top.minIndex = min;
-					top.maxIndex = max;
-
-					break;
-				case 0:
-					var min = top.minIndex - top.navPageSize;
-					var max = top.maxIndex - top.navPageSize;
-
-					if (min <= 0) {
-						// alert("禁止上一页");
-						top.preDisabled = true;
-						top.nextDisabled = false;
-					} else {
-						top.preDisabled = false;
-						top.nextDisabled = false;
-					}
-					top.minIndex = min;
-					top.maxIndex = max;
-
-					break;
-				}
-
-				return false;
-			}
-			
 			/**
 	    	 * 路由切换到 详情页
 	    	 */

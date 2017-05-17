@@ -8,10 +8,12 @@
 				class="col-md-3 resent-grid recommended-grid"
 				ng-repeat="video in list">
 				<div class="resent-grid-img recommended-grid-img">
-					<a href="" ng-click="toDetail(video)"><img src="static/images/r1.jpg" alt="" /></a>
-					<div class="time small-time">
+					<a href="" ng-click="toDetail(video)">
+						<img ng-src="{{video.vPic}}" alt="视频显示图片" width="320" height="180" />
+					</a>
+					<!-- <div class="time small-time">
 						<p>50集全</p>
-					</div>
+					</div> -->
 				</div>
 				<div class="resent-grid-info recommended-grid-info video-info-grid">
 					<h5>

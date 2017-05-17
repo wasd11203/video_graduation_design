@@ -1,0 +1,42 @@
+/*首页show-grids-layout.html*/
+img.tag{
+	display:inline-block;
+	width:30px;
+	height:30px;
+	margin-right:10px;
+	vertical-align:sub;
+}
+.setFontSize{
+	font-size:16px;	
+}
+h2.vTopName img{
+	display:inline-block;
+	width:35px;
+	height:35px;	
+	margin-right:10px; 
+}
+.setHeight{
+	padding-top:20px;
+}
+.setMagin{
+	display:inline-block;
+	margin-left:20px;
+	padding:5px;
+	font-size:16px;
+}
+.setMagin:hover{
+	color:red;
+	text-decoration:none;
+}
+.footer{
+	min-height:205px;
+}
+
+/*详情播放页show-detail.html*/
+.recommended img{
+	height:78px;	
+}
+.clearPadding{padding:0;}
+.video-info-grid h5{
+	height:18px;
+}

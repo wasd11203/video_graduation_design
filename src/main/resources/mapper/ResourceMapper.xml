@@ -28,6 +28,8 @@
 	<resultMap type="com.vshow.entity.nav.TopNav" id="TOP_RESULT_MAP">
 		<id column="V_TOP_ID" property="vTopId"/>
 		<result column="V_TOP_NAME" property="vTopName"/>
+		<result column="V_TOP_ICON" property="vTopIcon"/>
+		
 		<collection property="secList" resultMap="SEC_RESULT_MAP"></collection>
 	</resultMap>
 

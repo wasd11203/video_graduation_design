@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('NavCtrl', function ($scope, $rootScope,commonservice,$state,$stateParams) {
+    .controller('NavCtrl', function ($scope, commonservice,$state,$stateParams) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -22,7 +22,7 @@ angular.module('vShow')
     		var url = "nav/list/top";
     		var param = {};
     		commonservice.postData(url,param).then(function(res){
-//    			console.log(res.data);
+    			console.log(res.data);
     			$scope.list = res.data;
     			if(vTopId){
     				angular.forEach($scope.list,function(data,index,array){

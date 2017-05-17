@@ -8,22 +8,18 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('GirdsLayoutCtrl', function ($scope, $rootScope,$stateParams,commonservice,$state) {
+    .controller('GirdsLayoutCtrl', function ($scope, $rootScope,commonservice,$state) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
-    	$scope.param = $stateParams;
-    	console.log($scope.param);
     	
     	/**
     	 * 初始化 内容页
     	 */
     	$scope.initGirds = function(){
-    		if(!$scope.param.vTopId){
-    			$scope.listGirds();
-    		}
+    		$scope.listGirds();
     	}
     	
     	/**
@@ -43,70 +39,29 @@ angular.module('vShow')
     		commonservice.postData(url,param).then(function(res){
     			console.log(res.data);
     			$scope.navsAndVideos = [];
+				
     			angular.forEach(res.data,function(data,index,array){
     				data.curIndex = 0;
-    				data.minIndex = 0;
     				data.maxIndex = 4;
-    				data.navPageSize = 4;
-    				data.preDisabled = true;
-    				if(data.maxIndex > data.secList.length-1){
-//    					alert("禁止下一页");
-    					data.nextDisabled = true;
-    				}else{
-    					data.nextDisabled = false;
+    				data.dropList = [];
+    				data.leftList = [];
+    				if(data.secList.length >= data.maxIndex){
+    					for(var i = data.maxIndex ;i<data.secList.length;i++){
+    						data.dropList.push(data.secList[i]);
+    					}
     				}
+    				for(var i = 0 ;i<data.maxIndex;i++){
+    					data.leftList.push(data.secList[i]);
+					}	
+    				
     				$scope.navsAndVideos.push(data);
     			});
     			
-    	    	
+//    			console.log($scope.navsAndVideos);
+    			
     		},function(res){
     			alert(res.status);
     		});
-    	}
-    	
-    	/**
-    	 * 修改 二级菜单的显示
-    	 */
-    	$scope.changeSecNavShow = function(navAndVideos,type){
-    		
-    		switch(type){
-    			case 1:
-    				
-    				var min = navAndVideos.minIndex + navAndVideos.navPageSize;
-    				var max = navAndVideos.maxIndex + navAndVideos.navPageSize;
-    				
-    				if(max > navAndVideos.secList.length-1){
-//    					alert("禁止下一页");
-    					navAndVideos.nextDisabled = true;
-    					navAndVideos.preDisabled = false;
-    				}else{
-    					navAndVideos.nextDisabled = false;
-    					navAndVideos.preDisabled = false;
-    				}
-    				
-    				navAndVideos.minIndex = min;
-					navAndVideos.maxIndex = max;
-					
-    				break;
-    			case 0:
-    				var min = navAndVideos.minIndex - navAndVideos.navPageSize;
-    				var max = navAndVideos.maxIndex - navAndVideos.navPageSize;
-    				
-    				if(min <= 0){
-//    					alert("禁止上一页");
-    					navAndVideos.preDisabled = true;
-    					navAndVideos.nextDisabled = false;
-    				}else{
-    					navAndVideos.preDisabled = false;
-    					navAndVideos.nextDisabled = false;
-    				}
-    				navAndVideos.minIndex = min;
-					navAndVideos.maxIndex = max;
-    				
-    				break;
-    		}
-    		
-    		return false;
     	}
     	
     	/**

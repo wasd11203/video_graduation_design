@@ -1,25 +1,38 @@
 <div class="row clearfix " ng-init="initGirds();">
 
 	<div class="row clearfix " ng-repeat="navAndVideos in navsAndVideos" style="padding-left:46px;">
-		<h2>{{navAndVideos.vTopName}}</h2>
+
 		<div class="row clearfix">
-			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<button type="button" class="btn btn-info" ng-disabled="navAndVideos.preDisabled" ng-click="changeSecNavShow(navAndVideos,0)">前一页</button>
-			</div>
-			<div class="col-sm-5 col-sm-offset-1 col-md-6 ">
+			<h2 class="col-md-2 vTopName">
+				<img ng-src="{{navAndVideos.vTopIcon}}" alt="类别图标" width="30" height="30"/>
+				{{navAndVideos.vTopName}}
+			</h2>
+		
+			<div class="col-md-6 text-bottom setHeight">
 				<ul class="list-inline">
-					<li class="text-center" ng-repeat="secNav in navAndVideos.secList " ng-if="$index >= navAndVideos.minIndex && $index < navAndVideos.maxIndex " ng-click="changeVideos(navAndVideos,$index)"><a href="">{{secNav.vSecName}}</a></li>
+					<li ng-repeat="secNav in navAndVideos.leftList track by $index" ng-click="changeVideos(navAndVideos,$index)">
+						<a href="" class="setMagin">{{secNav.vSecName}}</a>
+					</li>
 				</ul>
 			</div>
-			<div class="col-sm-1 col-sm-offset-1 col-md-1 ">
-				<button type="button" class="btn btn-info" ng-disabled="navAndVideos.nextDisabled" ng-click="changeSecNavShow(navAndVideos,1)">后一页</button>
+			<div ng-if="navAndVideos.dropList.length > 0" class="col-md-1 col-sm-1 col-sm-offset-1 setHeight">
+				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+					更多分类
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="secNav in navAndVideos.dropList track by $index "><a href="" ng-click="changeVideos(navAndVideos,navAndVideos.maxIndex+$index)">{{secNav.vSecName}}</a></li>
+				</ul>
+				
 			</div>
-		</div>
+		</div> 
 		
 		<div class="row clearfix">
-			<div ng-if="navAndVideos.secList[navAndVideos.curIndex].videos[0].vId != null" class="col-md-3 resent-grid recommended-grid" ng-repeat="video in navAndVideos.secList[navAndVideos.curIndex].videos">
+			<div class="col-md-3 resent-grid recommended-grid" ng-if="navAndVideos.secList[navAndVideos.curIndex].videos[0].vId != null" ng-repeat="video in navAndVideos.secList[navAndVideos.curIndex].videos">
 				<div class="resent-grid-img recommended-grid-img">
-					<a href="" ng-click="toDetail(video)"><img src="static/images/r1.jpg" alt="" /></a>
+					<a href="" ng-click="toDetail(video)">
+						<img ng-src="{{video.vPic}}" alt="视频显示图片" width="320" height="180" />
+					</a>
 					<!-- <div class="time small-time">
 						<p>50集全</p>
 					</div> -->

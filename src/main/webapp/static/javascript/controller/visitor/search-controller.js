@@ -8,7 +8,7 @@
  * Controller of the vShow
  */
 angular.module('vShow')
-    .controller('SearchCtrl', function ($scope, $rootScope,$state) {
+    .controller('SearchCtrl', function ($scope,$state) {
     	this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
