@@ -72,23 +72,23 @@
 				<form ng-if="video.disComment == 0" role="form" ng-submit="sendCommentAndCreateVisitor()">
 					<div class="row clearfix">
 						<div class="form-group col-md-11">
-					   		<input type="text" required class="form-control" ng-model="nickname" ng-blur="toCheckName();" ng-focus="clearTip();" placeholder="Nickname">
+					   		<input type="text" required class="form-control" ng-model="$parent.nickname" ng-blur="toCheckName();" ng-focus="clearTip();" placeholder="Nickname">
 					  	</div>
 					  	<div class="col-md-1">
-					  		<label ng-if="suc != -1" ng-class="{'label-success':suc == 0,'label-danger':suc == 1}" class="label" ng-bind="tip">ASD</label>
+					  		<label ng-if="$parent.suc != -1" ng-class="{'label-success':$parent.suc == 0,'label-danger':$parent.suc == 1}" class="label" ng-bind="$parent.tip">ASD</label>
 					  	</div>
 				  	</div>
 				  	
 				  	<div class="row clearfix">
 					  	<div class="form-group col-md-11">
-					   		<input type="text" required class="form-control" ng-model="phone" placeholder="Phone">
+					   		<input type="text" required class="form-control" ng-model="$parent.phone" placeholder="Phone">
 					  	</div>
 				  	</div>
 				  	
 				  	<div class="row clearfix">
 				  	<div class="form-group col-md-11">
 				  		<div class="input-group">
-							<input type="text" required class="form-control" ng-model="verifyCode" placeholder="Verification Code" />
+							<input type="text" required class="form-control" ng-model="$parent.verifyCode" placeholder="Verification Code" />
 							<span class="input-group-btn">
 								<button class="btn btn-default" style="width: 170px;" type="button" ng-click="sendVerifyCodeBtn();" ng-bind="btnContent" ng-disabled="btnDisabled" >
 								</button>
@@ -99,14 +99,14 @@
 				  	
 				  	<div class="row clearfix">
 					  	<div class="form-group col-md-11">
-					  		<textarea class="form-control" placeholder="看点槽点，不吐不快！别憋着，马上大声说出来吧！" required rows="4" ng-model="comment"></textarea>
+					  		<textarea class="form-control" placeholder="看点槽点，不吐不快！别憋着，马上大声说出来吧！" required rows="4" ng-model="$parent.comment"></textarea>
 					  	</div>
 				  	</div>
 				  	
 				  	<div class="row clearfix">
 					  	<div class="col-md-11 column">
 						  	<button type="submit" class="btn btn-success pull-right">确认发表</button>
-							<label ng-if="errMsg" class="label label-danger" ng-bind="errMsg"></label>
+							<label ng-if="errMsg" class="label label-danger" ng-bind="$parent.errMsg"></label>
 					  	</div>
 				  	</div>
 				</form>
