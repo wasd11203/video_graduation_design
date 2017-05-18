@@ -18,5 +18,10 @@ public interface VisitorUserService {
 	 */
 	public Integer addVisitorUser(Map<String, Object> map);
 	
-	
+	/**
+	 * 获取昵称是否已被使用
+	 * @param map
+	 * @return
+	 */
+	public int getCountByNickname(Map<String, Object> map);
 }

@@ -41,6 +41,13 @@
 		</trim>
 	</insert>
 
+	<select id="selectCountByNickname" parameterType="Map" resultType="int">
+		SELECT count(1)
+		FROM v_visitor_user
+		WHERE 
+			VU_NICKNAME = #{nickname}
+	</select>
+
 </mapper>
 
 

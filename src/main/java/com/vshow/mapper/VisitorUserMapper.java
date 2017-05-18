@@ -18,4 +18,11 @@ public interface VisitorUserMapper {
 	 */
 	public int insertVisitorUser(Map<String, Object> map);
 	
+	/**
+	 * 根据 昵称查询是否该昵称已经存在
+	 * @param map
+	 * @return
+	 */
+	public int selectCountByNickname(Map<String, Object> map);
+	
 }

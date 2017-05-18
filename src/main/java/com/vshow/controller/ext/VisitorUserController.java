@@ -131,4 +131,24 @@ public class VisitorUserController extends BasicController{
 		return resJson;
 	}
 	
+	@RequestMapping("/check_name")
+	@ResponseBody
+	public JSONObject checkNickname(String nickname){
+		
+		JSONObject jobj = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nickname", nickname);
+		
+		int count = visitorUserService.getCountByNickname(map);
+		
+		if(count>0){
+			jobj.put("code", 1);
+			jobj.put("msg", "昵称已被使用");
+		}else{
+			jobj.put("code", 0);
+			jobj.put("msg", "昵称可以使用");
+		}
+		return jobj;
+	}
+	
 }

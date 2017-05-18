@@ -37,4 +37,9 @@ public class VisitorUserServiceImpl implements VisitorUserService {
 		
 	}
 
+	@Override
+	public int getCountByNickname(Map<String, Object> map) {
+		return visitorMapper.selectCountByNickname(map);
+	}
+
 }
